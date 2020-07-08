@@ -19,16 +19,14 @@
   },
   "homepage": "https://github.com/daiti0113/inTime-front-end#readme",
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
     "@types/react": "^16.9.41",
-    "@welldone-software/why-did-you-render": "^4.2.5",
     "axios": "^0.19.2",
+    "papercss": "^1.6.1",
     "parcel-bundler": "^1.12.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21",
-    "react-router-dom": "^5.2.0",
-    "typeface-roboto": "0.0.75"
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "babel-preset-react-app": "^9.1.2",

@@ -7,3 +7,4 @@ Create a free handwritten Gantt chart application.
 - **json-server** Run mock server
 - **eslint** Find and fix problems in JavaScript code
 - **axios** Request helper
+- **PaperCSS** CSS framework
