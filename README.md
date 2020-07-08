@@ -1,7 +1,9 @@
-# react-project-template
+# inTime-front-end
+Create a free handwritten Gantt chart application.
 
-This template contains:
+## This project uses:
 - **react** Front-end library
 - **percel** Run development server
 - **json-server** Run mock server
 - **eslint** Find and fix problems in JavaScript code
+- **axios** Request helper
