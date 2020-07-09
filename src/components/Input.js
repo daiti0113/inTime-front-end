@@ -1,10 +1,8 @@
 import React from "react"
 
-export const Input = () => {
-    return (
-        <div className="form-group">
-            <label htmlFor="paperInputs1">Input</label>
-            <input type="text" placeholder="Nice input" id="paperInputs1" />
-        </div>
-    )
-}
+export const Input = ({title, type, placeholder, id}) => (
+    <>
+        <label htmlFor={id}>{title}</label>
+        <input type={type} placeholder={placeholder} id={id} />
+    </>
+)
