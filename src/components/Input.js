@@ -1,8 +1,8 @@
 import React from "react"
 
-export const Input = ({title, type, placeholder, id}) => (
+export const Input = ({title, ...rest}) => (
     <>
-        <label htmlFor={id}>{title}</label>
-        <input type={type} placeholder={placeholder} id={id} />
+        {title && <label htmlFor={rest.id}>{title}</label>}
+        <input {...rest} />
     </>
 )

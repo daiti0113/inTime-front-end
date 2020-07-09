@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "NODE_ENV=dev parcel index.html",
     "mock": "NODE_ENV=dev node ./mock/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "parcel-bundler": "^1.12.4",
     "reac": "0.0.0",
     "react": "^16.13.1",
+    "react-datepicker": "^3.1.3",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21",
     "react-jss": "^10.3.0",
