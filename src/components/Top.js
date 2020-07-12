@@ -3,6 +3,7 @@ import {Input} from "./Input"
 import {createUseStyles} from "react-jss"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import {Table} from "./Table"
 
 const useStyles = createUseStyles({
     rangeDataPicker:{
@@ -46,5 +47,10 @@ const Form = () => {
 }
 
 export const Top = () => {
-    return <Form />
+    return (
+        <div>
+            <Form />
+            <Table />
+        </div>
+    )
 }
