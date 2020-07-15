@@ -4,6 +4,7 @@ import {createUseStyles} from "react-jss"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import {Table} from "./Table"
+import {RglPoc} from "./PoCReactGridLayout"
 
 const useStyles = createUseStyles({
     rangeDataPicker:{
@@ -51,6 +52,7 @@ export const Top = () => {
         <div>
             <Form />
             <Table />
+            <RglPoc />
         </div>
     )
 }
