@@ -1,20 +1,18 @@
 import React from "react"
 import {createUseStyles} from "react-jss"
+import {getDay} from "../helper/convertDate"
 
 const useStyles = createUseStyles({
     bar: ({row, startCol, endCol}) => ({
-        gridRow: `${row} / ${row + 1}`,
-        gridColumn: `${startCol} / ${endCol}`,
-        overflow: "visible",
+        gridRow: `${row + 1} / ${row + 2}`,
+        gridColumn: `${startCol + 1} / ${endCol + 2}`,
+        overflow: "auto",
         whiteSpace: "nowrap",
         alignSelf: "center",
-        paddingLeft: 5
+        paddingLeft: 5,
+        resize: "horizontal"
     })
 })
-
-const getDay = (date) => {
-    return date.replace(/^.+-/, "")
-}
 
 export const TaskBar = ({children, row, startDate, endDate}) => {
     const [startCol, endCol] = [getDay(startDate), getDay(endDate)]
