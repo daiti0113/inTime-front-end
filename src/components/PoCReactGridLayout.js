@@ -17,9 +17,8 @@ export const RglPoc = () => {
 
     return (
         <GridLayout className={`layout ${classes.gridLayout}`} cols={31} rowHeight={30} width={620} margin={[0, 0]}>
-            <div className={classes.grid} key="a" data-grid={{x: 0, y: 0, w: 1, h: 1, maxH: 1}}>a</div>
-            <div className={classes.grid} key="b" data-grid={{x: 1, y: 0, w: 1, h: 1, maxH: 1}}>b</div>
-            <div className={classes.grid} key="c" data-grid={{x: 4, y: 0, w: 1, h: 1, maxH: 1}}>c</div>
+            <div className={`${classes.grid} border border-${Math.floor( Math.random() * 5 ) + 2}`} key="b" data-grid={{x: 1, y: 0, w: 1, h: 1, maxH: 1}}>b</div>
+            <div className={`${classes.grid} border border-${Math.floor( Math.random() * 5 ) + 2}`} key="c" data-grid={{x: 4, y: 0, w: 1, h: 1, maxH: 1}}>c</div>
         </GridLayout>
     )
 }

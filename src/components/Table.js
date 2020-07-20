@@ -5,21 +5,25 @@ import {TaskBar} from "./TaskBar"
 import {getTaskDuration} from "../helper/convertDate"
 
 const useStyles = createUseStyles({
-    table: ({rowCount, colCount}) => ({
+    table: ({colCount}) => ({
         display: "grid",
         gridTemplateRows: `30px repeat(${colCount}, 30px)`,
-        gridTemplateColumns: `200px repeat(${rowCount}, 20px)`,
         marginTop: 50
     }),
-    oddRowCell: {
-        borderLeft: "solid 0.5px #41403e !important",
-        borderBottom: "solid 0.5px #41403e !important"
-    },
-    evenRowCell: {
-        borderLeft: "solid 0.5px #41403e !important",
-        borderBottom: "solid 0.5px #41403e !important",
-        background: "#d0dbc2"
-    }
+    // oddRowCell: {
+    //     borderLeft: "solid 0.5px #41403e !important",
+    //     borderBottom: "solid 0.5px #41403e !important"
+    // },
+    // evenRowCell: {
+    //     borderLeft: "solid 0.5px #41403e !important",
+    //     borderBottom: "solid 0.5px #41403e !important",
+    //     background: "#d0dbc2"
+    // },
+    row: ({rowCount}) => ({
+        display: "grid",
+        gridTemplateColumns: `200px repeat(${rowCount}, 20px)`,
+        gridTemplateAreas: "title taskBar"
+    })
 })
 
 const createRow = (year, month, UiElement, style="", taskDuration = 0) => {
@@ -35,12 +39,13 @@ const createRow = (year, month, UiElement, style="", taskDuration = 0) => {
 const FillInEl = ({style}) => <span className={style} />
 const HeaderEl = ({idx}) => <div>{idx}</div>
 
-const TableHeader = ({year, month}) => {
+const TableHeader = ({year, month, rowCount}) => {
+    const classes = useStyles({rowCount})
     return (
-        <>
+        <div className={classes.row}>
             <div>Task</div>
             {createRow(year, month, HeaderEl)}
-        </>
+        </div>
     )
 }
 
@@ -58,14 +63,14 @@ export const Table = () => {
 
     return (
         <div className={classes.table}>
-            <TableHeader year={year} month={month} />
+            <TableHeader year={year} month={month} rowCount={rowCount} />
             {tasks && tasks.map((task, idx) => {
                 return (
-                    <>
-                        <div className={((idx + 1) % 2 === 0) ? classes.oddRowCell : classes.evenRowCell}>{task.taskName}</div>
+                    <div className={classes.row}>
+                        taskName
                         <TaskBar key={idx+1} row={idx + 1} startDate={task.startDate} endDate={task.endDate}>{task.taskName}</TaskBar>
-                        {createRow(year, month, FillInEl, ((idx + 1) % 2 === 0) ? classes.oddRowCell : classes.evenRowCell, getTaskDuration(task.startDate, task.endDate))}
-                    </>
+                        {/* {createRow(year, month, FillInEl, ((idx + 1) % 2 === 0) ? classes.oddRowCell : classes.evenRowCell, getTaskDuration(task.startDate, task.endDate))} */}
+                    </div>
                 )
             })}
         </div>

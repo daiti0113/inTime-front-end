@@ -52,7 +52,6 @@ export const Top = () => {
         <div>
             <Form />
             <Table />
-            <RglPoc />
         </div>
     )
 }
