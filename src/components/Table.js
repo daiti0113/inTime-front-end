@@ -2,97 +2,29 @@ import React, {useState, useEffect} from "react"
 import {fetchData} from "../helper/fetchData"
 import {createUseStyles} from "react-jss"
 import {TaskBar} from "./TaskBar"
-import {range} from "../helper/arrayManipulation"
+import {DateHeader} from "./DateHeader"
+import {gray} from "../styles"
 
 const useStyles = createUseStyles({
-    table: ({colCount}) => ({
+    table: ({displayPeriod}) => ({
         display: "grid",
-        gridTemplateRows: `60px repeat(${colCount}, 30px) 1fr`,
+        gridTemplateRows: `60px repeat(${displayPeriod}, 30px) 1fr`,
         marginTop: 50,
-        width: ""
+        width: `${200 + displayPeriod * 20}px`
     }),
-    dateHeaderContainer: {
-        display: "grid",
-        gridTemplateRows: "30px 1fr",
-        gridTemplateColumns: "200px 1fr",
-        height: "500px",
-        border: "1px solid"
-    },
-    dateHeaderDayContainer: ({displayPeriod}) => ({
-        gridRow: "2 / 3",
-        gridColumn: "2 / 3",
-        display: "grid",
-        gridTemplateColumns: `repeat(${displayPeriod}, 20px)`,
-        gridTemplateAreas: "title taskBar"
-    }),
-    dateHeaderDay: {
-        borderLeft: "1px solid",
-        borderTop: "1px solid",
-        display: "flex",
-        justifyContent: "center",
-        paddingTop: 3
-    },
-    dateHeaderMonthContainer: ({displayPeriod}) => ({
-        gridRow: "1 / 2",
-        gridColumn: "2 / 3",
-        display: "grid",
-        gridTemplateColumns: `repeat(${displayPeriod}, 20px)`,
-    }),
-    dateHeaderMonth: () => ({
-        borderLeft: "1px solid",
-        display: "flex",
-        justifyContent: "center",
-        paddingTop: 3
-    }),
-    dateHeaderTaskContainer: {
-        gridRow: "1 / 3",
-        gridColumn: "1 / 2",
-        justifySelf: "center",
-        paddingTop: 20
-    },
-    ruledLine: {
-
-    },
     taskListContainer: {
-        borderTop: "1px solid"
+        borderTop: `1px solid ${gray}`,
+        padding: 5
     },
 })
-
-const DateHeader = ({displayStartDate, displayPeriod}) => {
-    const startDate = displayStartDate.getDate()
-    const classes = useStyles({displayPeriod})
-
-    return (
-        <div className={classes.dateHeaderContainer}>
-            <div className={classes.dateHeaderTaskContainer}>Task</div>
-            <div className={classes.dateHeaderMonthContainer}>
-                {/* TODO: don't use startDate */}
-                {range(startDate, displayPeriod).map((_, idx) => {
-                    displayStartDate.setDate(displayStartDate.getDate() + 1)
-                    return (idx === 0 || displayStartDate.getDate() === 1) 
-                        ? <div className={classes.dateHeaderMonth}>{displayStartDate.getMonth()}</div>
-                        : <div />
-                })}
-            </div>
-            <div className={classes.dateHeaderDayContainer}>
-                {/* TODO: don't use startDate */}
-                {range(startDate, displayPeriod).map(() => {
-                    displayStartDate.setDate(displayStartDate.getDate() + 1)
-                    return <div className={classes.dateHeaderDay}>{displayStartDate.getDate()}</div>
-                })}
-            </div>
-        </div>
-    )
-}
 
 
 export const Table = () => {
     const [displayStartDate, setDisplayStartDate] = useState(new Date())
     const [displayPeriod, setDisplayPeriod] = useState(31)
     const [tasks, setTasks] = useState([])
-    const rowCount = 31
     const colCount = 10
-    const classes = useStyles({rowCount, colCount})
+    const classes = useStyles({displayPeriod, colCount})
 
     fetchData(useEffect, "/tasks", setTasks)
 

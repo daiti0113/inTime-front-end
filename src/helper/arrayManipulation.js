@@ -1,1 +1,1 @@
-export const range = (start, displayPeriod) => [...Array(displayPeriod)].map((_, idx) => idx + start)
+export const range = (displayPeriod) => [...Array(displayPeriod)].map((_, idx) => idx)
