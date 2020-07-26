@@ -1,21 +1,22 @@
 import React from "react"
 import {createUseStyles} from "react-jss"
 import {range} from "../helper/arrayManipulation"
-import {gray} from "../styles"
+import {gray} from "../styles/color"
+import * as t from "../styles/table"
 
 const useStyles = createUseStyles({
-    dateHeader: {
+    dateHeader: ({taskCount}) => ({
         display: "grid",
-        gridTemplateRows: "30px 1fr",
-        gridTemplateColumns: "200px 1fr",
-        height: "500px",
+        gridTemplateRows: `${t.rowHeight}px 1fr`,
+        gridTemplateColumns: `${t.taskColWidth}px 1fr`,
+        height: `${(t.headerRowHeight + t.rowGap) + (taskCount * (t.rowHeight + t.rowGap))}px`,
         border: `1px solid ${gray}`
-    },
+    }),
     dateContainer: ({displayPeriod}) => ({
         gridRow: "2 / 3",
         gridColumn: "2 / 3",
         display: "grid",
-        gridTemplateColumns: `repeat(${displayPeriod}, 20px)`,
+        gridTemplateColumns: `repeat(${displayPeriod}, ${t.colWidth}px)`,
         gridTemplateAreas: "title taskBar"
     }),
     date: {
@@ -29,7 +30,7 @@ const useStyles = createUseStyles({
         gridRow: "1 / 2",
         gridColumn: "2 / 3",
         display: "grid",
-        gridTemplateColumns: `repeat(${displayPeriod}, 20px)`,
+        gridTemplateColumns: `repeat(${displayPeriod}, ${t.colWidth}px)`,
     }),
     month: () => ({
         borderLeft: `1px solid ${gray}`,
@@ -46,8 +47,8 @@ const useStyles = createUseStyles({
 })
 
 
-export const DateHeader = ({displayStartDate, displayPeriod}) => {
-    const classes = useStyles({displayPeriod})
+export const DateHeader = ({displayStartDate, displayPeriod, taskCount}) => {
+    const classes = useStyles({displayPeriod, taskCount})
     const monthCounter = new Date(displayStartDate)
     const dateCounter = new Date(displayStartDate)
 
