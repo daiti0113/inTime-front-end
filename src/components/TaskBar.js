@@ -4,19 +4,22 @@ import {getDay, getDateDiff} from "../helper/convertDate"
 import GridLayout from "react-grid-layout"
 
 const useStyles = createUseStyles({
-    bar: () => ({
+    container: () => ({
         display: "grid",
-        gridTemplateColumns: `200px 1fr`,
+        gridTemplateColumns: `140px 1fr`,
         gridColumnGap: 1
     }),
-    grid: {
-        borderRight: "1px solid"
+    bar: {
+        borderRight: "1px solid",
+        marginLeft: "-20px"
     },
-    gridLayout: {
+    barContainer: {
         maxHeight: "30px"
     },
     taskName: {
-        paddingLeft: 4
+        marginLeft: 4,
+        background: "#FFFFFF",
+        zIndex: 101
     }
 })
 
@@ -31,10 +34,10 @@ export const TaskBar = ({children, row, startDate, endDate, displayStartDate}) =
     console.log("startDate", w)
 
     return (
-        <div className={classes.bar}>
+        <div className={classes.container}>
             <div className={classes.taskName}>{children}</div>
-            <GridLayout className={`layout ${classes.gridLayout}`} cols={31} rowHeight={30} width={620} margin={[0, 0]}>
-                <div className={`${classes.grid} border border-${Math.floor( Math.random() * 5 ) + 2}`} key="a" data-grid={{x: x, y: 0, w: w, h: 1, maxH: 1}}>{children}</div>
+            <GridLayout className={`layout ${classes.barContainer}`} cols={31} rowHeight={30} width={620} margin={[0, 0]}>
+                <div className={`${classes.bar} border border-${Math.floor( Math.random() * 5 ) + 2}`} key="a" data-grid={{x: x + 1, y: 0, w: w, h: 1, maxH: 1}}>{children}</div>
             </GridLayout>
         </div>
     )
