@@ -5,6 +5,7 @@ import {TaskBar} from "./TaskBar"
 import {DateHeader} from "./DateHeader"
 import {gray} from "../styles/color"
 import * as t from "../styles/table"
+import {bottom} from "../styles/zIndex"
 
 const useStyles = createUseStyles({
     table: ({displayPeriod}) => ({
@@ -15,11 +16,20 @@ const useStyles = createUseStyles({
     }),
     taskListContainer: ({taskCount}) => ({
         display: "grid",
-        gridTemplateRows: `repeat(${taskCount}, ${t.rowHeight}px)`,
-        gridRowGap: t.rowGap,
-        borderTop: `1px solid ${gray}`,
-        paddingTop: 5
+        gridTemplateColumns: `${t.taskColWidth}px 1fr`,
+        borderTop: `1px solid ${gray}`
     }),
+    taskNameContainer: {
+        display: "grid",
+        gridTemplateRows: t.rowHeight,
+        gridRowGap: t.rowGap,
+        marginLeft: 4,
+        background: "#FFFFFF",
+    },
+    taskBarContainer: {
+        display: "grid",
+        gridRowGap: t.rowGap
+    }
 })
 
 
@@ -36,7 +46,12 @@ export const Table = () => {
         <div className={classes.table}>
             <DateHeader displayStartDate={displayStartDate} displayPeriod={displayPeriod} taskCount={taskCount} />
             <div className={classes.taskListContainer}>
-                {tasks && tasks.map((task, idx) => <TaskBar key={idx+1} row={idx + 1} startDate={new Date(task.startDate)} endDate={new Date(task.endDate)} displayStartDate={displayStartDate}>{task.taskName}</TaskBar>)}
+                <div className={classes.taskNameContainer}>
+                    {tasks && tasks.map(task => <div>{task.taskName}</div>)}
+                </div>
+                <div className={classes.taskBarContainer}>
+                    {tasks && tasks.map((task, idx) => <TaskBar key={idx+1} row={idx + 1} startDate={new Date(task.startDate)} endDate={new Date(task.endDate)} displayStartDate={displayStartDate}>{task.taskName}</TaskBar>)}
+                </div>
             </div>
         </div>
     )

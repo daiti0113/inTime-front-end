@@ -3,6 +3,7 @@ import {createUseStyles} from "react-jss"
 import {range} from "../helper/arrayManipulation"
 import {gray} from "../styles/color"
 import * as t from "../styles/table"
+import {middle, bottom} from "../styles/zIndex"
 
 const useStyles = createUseStyles({
     dateHeader: ({taskCount}) => ({

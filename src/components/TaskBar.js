@@ -2,24 +2,19 @@ import React from "react"
 import {createUseStyles} from "react-jss"
 import {getDay, getDateDiff} from "../helper/convertDate"
 import GridLayout from "react-grid-layout"
+import {middle, bottom} from "../styles/zIndex"
 
 const useStyles = createUseStyles({
     container: () => ({
         display: "grid",
-        gridTemplateColumns: `140px 1fr`,
         gridColumnGap: 1
     }),
     bar: {
         borderRight: "1px solid",
-        marginLeft: "-20px"
     },
     barContainer: {
-        maxHeight: "30px"
-    },
-    taskName: {
-        marginLeft: 4,
-        background: "#FFFFFF",
-        zIndex: 101
+        maxHeight: "30px",
+        marginLeft: "-20px"
     }
 })
 
@@ -35,8 +30,7 @@ export const TaskBar = ({children, row, startDate, endDate, displayStartDate}) =
 
     return (
         <div className={classes.container}>
-            <div className={classes.taskName}>{children}</div>
-            <GridLayout className={`layout ${classes.barContainer}`} cols={31} rowHeight={30} width={620} margin={[0, 0]}>
+            <GridLayout className={`layout ${classes.barContainer}`} cols={31} rowHeight={30} width={640} margin={[0, 0]}>
                 <div className={`${classes.bar} border border-${Math.floor( Math.random() * 5 ) + 2}`} key="a" data-grid={{x: x + 1, y: 0, w: w, h: 1, maxH: 1}}>{children}</div>
             </GridLayout>
         </div>
