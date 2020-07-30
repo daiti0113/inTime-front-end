@@ -28,7 +28,8 @@ const useStyles = createUseStyles({
     },
     taskBarContainer: {
         display: "grid",
-        gridRowGap: t.rowGap
+        gridRowGap: t.rowGap,
+        overflow: "hidden"
     }
 })
 
