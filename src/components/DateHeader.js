@@ -11,7 +11,7 @@ const useStyles = createUseStyles({
         gridTemplateRows: `${t.rowHeight}px 1fr`,
         gridTemplateColumns: `${t.taskColWidth}px 1fr`,
         height: `${(t.headerRowHeight + t.rowGap) + (taskCount * (t.rowHeight + t.rowGap))}px`,
-        border: `1px solid ${gray}`
+        border: `1px solid ${gray}`,
     }),
     dateContainer: ({displayPeriod}) => ({
         gridRow: "2 / 3",

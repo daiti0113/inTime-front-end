@@ -42,6 +42,7 @@ export const Table = () => {
 
     fetchData(useEffect, "/tasks", setTasks)
 
+    // TODO: Fix dupulicate
     return (
         <div className={classes.table}>
             <DateHeader displayStartDate={displayStartDate} displayPeriod={displayPeriod} taskCount={taskCount} />
@@ -50,7 +51,7 @@ export const Table = () => {
                     {tasks && tasks.map(task => <div>{task.taskName}</div>)}
                 </div>
                 <div className={classes.taskBarContainer}>
-                    {tasks && tasks.map((task, idx) => <TaskBar key={idx+1} row={idx + 1} startDate={new Date(task.startDate)} endDate={new Date(task.endDate)} displayStartDate={displayStartDate}>{task.taskName}</TaskBar>)}
+                    {tasks && tasks.map((task, idx) => <TaskBar key={idx+1} row={idx + 1} startDate={new Date(task.startDate)} endDate={new Date(task.endDate)} displayStartDate={displayStartDate} displayPeriod={displayPeriod}>{task.taskName}</TaskBar>)}
                 </div>
             </div>
         </div>
