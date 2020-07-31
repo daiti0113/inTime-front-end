@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from "react"
 import {fetchData} from "../helper/fetchData"
 import {createUseStyles} from "react-jss"
-import {TaskBar} from "./TaskBar"
 import {DateHeader} from "./DateHeader"
-import {gray} from "../styles/color"
 import * as t from "../styles/table"
-import {bottom} from "../styles/zIndex"
+import {TaskListContainer} from "./TaskListContainer"
 
 const useStyles = createUseStyles({
     table: ({displayPeriod}) => ({
@@ -13,24 +11,7 @@ const useStyles = createUseStyles({
         gridTemplateRows: `${t.headerRowHeight}px 1fr`,
         marginTop: 50,
         width: `${t.taskColWidth + displayPeriod * t.colWidth}px`
-    }),
-    taskListContainer: ({taskCount}) => ({
-        display: "grid",
-        gridTemplateColumns: `${t.taskColWidth}px 1fr`,
-        borderTop: `1px solid ${gray}`
-    }),
-    taskNameContainer: {
-        display: "grid",
-        gridTemplateRows: t.rowHeight,
-        gridRowGap: t.rowGap,
-        marginLeft: 4,
-        background: "#FFFFFF",
-    },
-    taskBarContainer: {
-        display: "grid",
-        gridRowGap: t.rowGap,
-        overflow: "hidden"
-    }
+    })
 })
 
 
@@ -43,18 +24,10 @@ export const Table = () => {
 
     fetchData(useEffect, "/tasks", setTasks)
 
-    // TODO: Fix dupulicate
     return (
         <div className={classes.table}>
             <DateHeader displayStartDate={displayStartDate} displayPeriod={displayPeriod} taskCount={taskCount} />
-            <div className={classes.taskListContainer}>
-                <div className={classes.taskNameContainer}>
-                    {tasks && tasks.map(task => <div>{task.taskName}</div>)}
-                </div>
-                <div className={classes.taskBarContainer}>
-                    {tasks && tasks.map((task, idx) => <TaskBar key={idx+1} row={idx + 1} startDate={new Date(task.startDate)} endDate={new Date(task.endDate)} displayStartDate={displayStartDate} displayPeriod={displayPeriod}>{task.taskName}</TaskBar>)}
-                </div>
-            </div>
+            <TaskListContainer tasks={tasks} displayPeriod={displayPeriod} displayStartDate={displayStartDate} />
         </div>
     )
 }

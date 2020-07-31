@@ -1,9 +1,8 @@
 import React from "react"
 import {createUseStyles} from "react-jss"
-import {getDay, getDateDiff} from "../helper/convertDate"
+import {getDateDiff} from "../helper/convertDate"
 import GridLayout from "react-grid-layout"
-import {middle, bottom} from "../styles/zIndex"
-import {hideAreaRowCount, colWidth} from "../styles/table"
+import {hideAreaRowCount, colWidth, rowHeight} from "../styles/table"
 
 const useStyles = createUseStyles({
     container: () => ({
@@ -12,6 +11,8 @@ const useStyles = createUseStyles({
     }),
     bar: {
         borderRight: "1px solid",
+        whiteSpace: "nowrap",
+        lineHeight: `${rowHeight}px`
     },
     barContainer: {
         maxHeight: "30px",
@@ -20,19 +21,10 @@ const useStyles = createUseStyles({
     }
 })
 
-export const TaskBar = ({children, row, startDate, endDate, displayStartDate, displayPeriod}) => {
-    // const [startCol, endCol] = [getDay(startDate), getDay(endDate)]
-    const classes = useStyles({row/*, startCol, endCol*/})
-
+export const TaskBar = ({children, startDate, endDate, displayStartDate, displayPeriod}) => {
+    const classes = useStyles()
     const x = getDateDiff(displayStartDate, startDate) + hideAreaRowCount
     const w = getDateDiff(startDate, endDate) + 1
-
-    console.log("x:", x)
-    console.log("w", w)
-    console.log("cols:", hideAreaRowCount * 2 + displayPeriod)
-    console.log("width:", colWidth * (hideAreaRowCount * 2 + displayPeriod))
-    console.log(`-${colWidth * hideAreaRowCount}px`)
-
 
     return (
         <div className={classes.container}>
