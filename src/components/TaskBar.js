@@ -28,8 +28,11 @@ export const TaskBar = ({children, startDate, endDate, displayStartDate, display
 
     return (
         <div className={classes.container}>
-            <GridLayout className={`layout ${classes.barContainer}`} cols={hideAreaRowCount * 2 + displayPeriod} rowHeight={30} width={colWidth * (hideAreaRowCount * 2 + displayPeriod)} margin={[0, 0]}>
-                <div className={`${classes.bar} border border-${Math.floor( Math.random() * 5 ) + 2}`} key="a" data-grid={{x: x, y: 0, w: w, h: 1, maxH: 1}}>{children}</div>
+            <GridLayout 
+                className={`layout ${classes.barContainer}`} cols={hideAreaRowCount * 2 + displayPeriod}
+                rowHeight={30} width={colWidth * (hideAreaRowCount * 2 + displayPeriod)} margin={[0, 0]}
+            >
+                <div className={`${classes.bar} border border-${Math.floor( Math.random() * 5 ) + 2}`} key={children} data-grid={{x: x, y: 0, w: w, h: 1, maxH: 1}}>{children}</div>
             </GridLayout>
         </div>
     )
