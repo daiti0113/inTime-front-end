@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useContext} from "react"
 import {fetchData} from "../helper/fetchData"
 import {createUseStyles} from "react-jss"
 import {DateHeader} from "./DateHeader"
 import * as t from "../styles/table"
 import {TaskListContainer} from "./TaskListContainer"
+import {store} from "../stores/taskStore"
 
 const useStyles = createUseStyles({
     table: ({displayPeriod}) => ({
@@ -14,15 +15,16 @@ const useStyles = createUseStyles({
     })
 })
 
-
+// MEMO: Move state "tasks" to TaskBar.js
 export const Table = () => {
     const [displayStartDate, setDisplayStartDate] = useState(new Date())
     const [displayPeriod, setDisplayPeriod] = useState(31)
-    const [tasks, setTasks] = useState([])
+    const {state, dispatch} = useContext(store)
+    const {tasks} = state
     const taskCount = tasks.length
     const classes = useStyles({displayPeriod, taskCount})
 
-    fetchData(useEffect, "/tasks", setTasks)
+    fetchData(useEffect, "/tasks", dispatch)
 
     return (
         <div className={classes.table}>

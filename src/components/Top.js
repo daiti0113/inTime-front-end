@@ -4,6 +4,7 @@ import {createUseStyles} from "react-jss"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import {Table} from "./Table"
+import {TaskProvider} from "../stores/taskStore"
 
 const useStyles = createUseStyles({
     rangeDataPicker:{
@@ -50,7 +51,9 @@ export const Top = () => {
     return (
         <div>
             <Form />
-            <Table />
+            <TaskProvider>
+                <Table />
+            </TaskProvider>
         </div>
     )
 }
