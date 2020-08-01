@@ -40,7 +40,7 @@ export const TaskListContainer = ({tasks, displayPeriod, displayStartDate}) => {
                     {tasks.map(task => <div key={task.id}>{task.taskName}</div>)}
                 </div>
                 <div className={classes.taskBarContainer}>
-                    {tasks.map((task) => <TaskBar key={task.id} startDate={new Date(task.startDate)} endDate={new Date(task.endDate)} displayStartDate={displayStartDate} displayPeriod={displayPeriod}>{task.taskName}</TaskBar>)}
+                    {tasks.map((task) => <TaskBar key={task.id} task={task} startDate={new Date(task.startDate)} endDate={new Date(task.endDate)} displayStartDate={displayStartDate} displayPeriod={displayPeriod} />)}
                 </div>
             </>}
         </div>

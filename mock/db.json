@@ -31,15 +31,7 @@
             "endDate": "2020-08-03"
         }
     ],
-    "comments": [
-        {
-            "id": 1,
-            "body": "some comment",
-            "postId": 1
-        }
-    ],
-    "profile": {
-        "type": "string",
-        "name": "typicode"
+    "tasks_post": {
+        "data": "OK"
     }
 }

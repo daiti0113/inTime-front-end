@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react"
-import {fetchData} from "../helper/fetchData"
+import {fetchData} from "../helper/handleData"
 import {createUseStyles} from "react-jss"
 import {DateHeader} from "./DateHeader"
 import * as t from "../styles/table"

@@ -13,6 +13,8 @@ const TaskProvider = ({children}) => {
         switch (action.type) {
             case "FETCH_TASKS":
                 return {...state, tasks: action.payload}
+            case "UPDATE_TASKS":
+                return {tasks: state.tasks.map(task => task.id === action.payload.id ? {...task, ...action.payload} : task)}
             default:
                 return {...state}
         }
