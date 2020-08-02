@@ -34,13 +34,15 @@ Task bar can be dragged, dropped and resize.
 ```
 
 ## Commit Guidelines(20200801):
-- Follow [Angular.js developers guide](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines).
+-Follow [the Angular.js developers guide](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) with your own changes.
 > ### Must be one of the following:
 >**feat**: A new feature  
 **fix**: A bug fix  
 **docs**: Documentation only changes  
-**style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)  
+**style**: ~~Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)~~
+Add or change CSS styles  
 **refactor**: A code change that neither fixes a bug nor adds a feature  
+*Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)*  
 **perf**: A code change that improves performance  
 **test**: Adding missing or correcting existing tests  
 **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation  
