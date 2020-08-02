@@ -14,7 +14,8 @@ const useStyles = createUseStyles({
     taskListContainer: () => ({
         display: "grid",
         gridTemplateColumns: `${t.taskColWidth}px 1fr`,
-        borderTop: `1px solid ${gray}`
+        borderTop: `1px solid ${gray}`,
+        paddingTop: t.rowGap
     }),
     taskNameContainer: {
         display: "grid",

@@ -3,4 +3,4 @@ export const rowHeight = 30
 export const headerRowHeight = rowHeight * 2
 export const colWidth = 20
 export const taskColWidth = colWidth * 7
-export const hideAreaRowCount = 31
+export const hideAreaColCount = 31
