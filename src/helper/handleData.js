@@ -13,6 +13,12 @@ export const fetchData = (useEffect, path, dispatch, trigger=[]) => {
 }
 
 export const updateData = (path, dispatch, payload) => {
-    request("POST", path, payload)
+    request("PUT", path, payload)
     dispatch({type: `UPDATE_${pathToType(path)}`, payload: payload})
+}
+
+export const createData = (path, dispatch, payload) => {
+    request("POST", path, payload)
+    console.log(dispatch)
+    dispatch({type: `CREATE_${pathToType(path)}`, payload: payload})
 }

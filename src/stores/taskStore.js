@@ -14,7 +14,9 @@ const TaskProvider = ({children}) => {
             case "FETCH_TASKS":
                 return {...state, tasks: action.payload}
             case "UPDATE_TASKS":
-                return {tasks: state.tasks.map(task => task.id === action.payload.id ? {...task, ...action.payload} : task)}
+                return {...state, tasks: state.tasks.map(task => task.id === action.payload.id ? {...task, ...action.payload} : task)}
+            case "CREATE_TASKS":
+                return {...state, tasks: state.tasks.concat({taskName: action.payload.taskName, startDate: action.payload.startDate, endDate: action.payload.endDate})}
             default:
                 return {...state}
         }

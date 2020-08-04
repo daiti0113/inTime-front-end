@@ -1,10 +1,12 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
 import {Input} from "./Input"
 import {createUseStyles} from "react-jss"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import PlusIcon from "../assets/plus.svg" 
 import {gray} from "../styles/color"
+import {store} from "../stores/taskStore"
+import {createData} from "../helper/handleData"
 
 const useStyles = createUseStyles({
     rangeDataPicker:{
@@ -25,9 +27,7 @@ const useStyles = createUseStyles({
     }
 })
 
-const RangeDataPicker = () => {
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date())
+const RangeDataPicker = ({startDateUseState: [startDate, setStartDate], endDateUseState: [endDate, setEndDate]}) => {
     const classes = useStyles()
 
     return (
@@ -46,12 +46,18 @@ const RangeDataPicker = () => {
 
 export const TaskAdditionForm = () => {
     const classes = useStyles()
+    const [taskName, setTaskName] = useState("")
+    const [startDate, setStartDate] = useState(new Date())
+    const [endDate, setEndDate] = useState(new Date())
+    const {dispatch} = useContext(store)
 
     return (
         <div className={classes.form}>
-            <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" />
-            <RangeDataPicker />
-            <PlusIcon className={classes.plusIcon} onClick={() => {console.log("Clicked!!!!!")}} />
+            <form>
+                <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} />
+                <RangeDataPicker startDateUseState={[startDate, setStartDate]} endDateUseState={[endDate, setEndDate]} />
+                <PlusIcon className={classes.plusIcon} onClick={() => createData("/tasks", dispatch, {taskName, startDate, endDate})} />
+            </form>
         </div>
     )
 }
