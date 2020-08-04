@@ -19,6 +19,5 @@ export const updateData = (path, dispatch, payload) => {
 
 export const createData = (path, dispatch, payload) => {
     request("POST", path, payload)
-    console.log(dispatch)
     dispatch({type: `CREATE_${pathToType(path)}`, payload: payload})
 }

@@ -7,6 +7,7 @@ import PlusIcon from "../assets/plus.svg"
 import {gray} from "../styles/color"
 import {store} from "../stores/taskStore"
 import {createData} from "../helper/handleData"
+import {formatDate} from "../helper/convertDate"
 
 const useStyles = createUseStyles({
     rangeDataPicker:{
@@ -49,14 +50,14 @@ export const TaskAdditionForm = () => {
     const [taskName, setTaskName] = useState("")
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
-    const {dispatch} = useContext(store)
+    const {state: {tasks}, dispatch} = useContext(store)
 
     return (
         <div className={classes.form}>
             <form>
                 <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} />
                 <RangeDataPicker startDateUseState={[startDate, setStartDate]} endDateUseState={[endDate, setEndDate]} />
-                <PlusIcon className={classes.plusIcon} onClick={() => createData("/tasks", dispatch, {taskName, startDate, endDate})} />
+                <PlusIcon className={classes.plusIcon} onClick={() => createData("/tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})} />
             </form>
         </div>
     )

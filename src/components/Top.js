@@ -6,8 +6,8 @@ import {TaskAdditionForm} from "./TaskAdditionForm"
 export const Top = () => {
     return (
         <div>
-            <TaskAdditionForm />
             <TaskProvider>
+                <TaskAdditionForm />
                 <Table />
             </TaskProvider>
         </div>
