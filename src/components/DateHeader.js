@@ -1,7 +1,7 @@
 import React from "react"
 import {createUseStyles} from "react-jss"
 import {range} from "../helper/arrayManipulation"
-import {gray} from "../styles/color"
+import {primaryGray} from "../styles/color"
 import * as t from "../styles/table"
 
 const useStyles = createUseStyles({
@@ -10,7 +10,7 @@ const useStyles = createUseStyles({
         gridTemplateRows: `${t.rowHeight}px 1fr`,
         gridTemplateColumns: `${t.taskColWidth}px 1fr`,
         height: `${(t.headerRowHeight + t.rowGap) + (taskCount * (t.rowHeight + t.rowGap))}px`,
-        border: `1px solid ${gray}`
+        border: `1px solid ${primaryGray}`
     }),
     dateContainer: ({displayPeriod}) => ({
         gridRow: "2 / 3",
@@ -20,8 +20,8 @@ const useStyles = createUseStyles({
         gridTemplateAreas: "title taskBar"
     }),
     date: {
-        borderLeft: `1px solid ${gray}`,
-        borderTop: `1px solid ${gray}`,
+        borderLeft: `1px solid ${primaryGray}`,
+        borderTop: `1px solid ${primaryGray}`,
         display: "flex",
         justifyContent: "center",
         paddingTop: 3
@@ -33,7 +33,7 @@ const useStyles = createUseStyles({
         gridTemplateColumns: `repeat(${displayPeriod}, ${t.colWidth}px)`
     }),
     month: () => ({
-        borderLeft: `1px solid ${gray}`,
+        borderLeft: `1px solid ${primaryGray}`,
         display: "flex",
         justifyContent: "center",
         paddingTop: 3

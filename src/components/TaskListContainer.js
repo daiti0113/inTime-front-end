@@ -1,7 +1,7 @@
 import React from "react"
 import {createUseStyles} from "react-jss"
 import {TaskBar} from "./TaskBar"
-import {gray} from "../styles/color"
+import {primaryGray} from "../styles/color"
 import * as t from "../styles/table"
 
 const useStyles = createUseStyles({
@@ -14,7 +14,7 @@ const useStyles = createUseStyles({
     taskListContainer: () => ({
         display: "grid",
         gridTemplateColumns: `${t.taskColWidth}px 1fr`,
-        borderTop: `1px solid ${gray}`,
+        borderTop: `1px solid ${primaryGray}`,
         paddingTop: t.rowGap
     }),
     taskNameContainer: {
