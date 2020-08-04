@@ -13,6 +13,8 @@ export const request = (method, endpoint, param) => {
             res = axios.post(base_url + endpoint, param)
             break
         case "PUT":
+            res = axios.put(base_url + endpoint, param)
+            break
         case "DELETE":
             res = ""
             break
