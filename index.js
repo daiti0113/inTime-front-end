@@ -8,7 +8,7 @@ import "@babel/polyfill"
 
 const useStyles = createUseStyles({
     app: {
-        padding: 20
+        padding: "0 20px"
     }
 })
 

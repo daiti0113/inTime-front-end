@@ -1,21 +1,25 @@
 import React, {useState, useEffect, useContext} from "react"
 import {fetchData} from "../helper/handleData"
 import {createUseStyles} from "react-jss"
-import {DateHeader} from "./DateHeader"
 import * as t from "../styles/table"
 import {TaskListContainer} from "./TaskListContainer"
 import {store} from "../stores/taskStore"
+import {TaskNameContainer} from "./TaskNameContainer"
+import {primaryGray} from "../styles/color"
 
+// TODO: Change taskName to something easy to understand
+// TODO: Use style constants
 const useStyles = createUseStyles({
     table: ({displayPeriod}) => ({
         display: "grid",
-        gridTemplateRows: `${t.headerRowHeight}px 1fr`,
+        gridTemplateColumns: `${t.taskColWidth}px 1fr`,
         marginTop: 50,
-        width: `${t.taskColWidth + displayPeriod * t.colWidth}px`
+        maxWidth: `${t.taskColWidth + displayPeriod * t.colWidth + 1}px`,
+        border: `1px solid ${primaryGray}`
     })
 })
 
-// MEMO: Move state "tasks" to TaskBar.js
+// MEMO: Move state "tasks" to TaskBar.js ??
 export const Table = () => {
     const [displayStartDate, setDisplayStartDate] = useState(new Date())
     const [displayPeriod, setDisplayPeriod] = useState(31)
@@ -28,8 +32,9 @@ export const Table = () => {
 
     return (
         <div className={classes.table}>
-            <DateHeader displayStartDate={displayStartDate} displayPeriod={displayPeriod} taskCount={taskCount} />
-            <TaskListContainer tasks={tasks} displayPeriod={displayPeriod} displayStartDate={displayStartDate} />
+            <TaskNameContainer tasks={tasks} />
+            {/* <DateHeader displayStartDate={displayStartDate} displayPeriod={displayPeriod} taskCount={taskCount} /> */}
+            <TaskListContainer tasks={tasks} displayPeriod={displayPeriod} displayStartDate={displayStartDate} taskCount={taskCount} />
         </div>
     )
 }

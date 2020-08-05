@@ -8,16 +8,12 @@ const useStyles = createUseStyles({
     dateHeader: ({taskCount}) => ({
         display: "grid",
         gridTemplateRows: `${t.rowHeight}px 1fr`,
-        gridTemplateColumns: `${t.taskColWidth}px 1fr`,
-        height: `${(t.headerRowHeight + t.rowGap) + (taskCount * (t.rowHeight + t.rowGap))}px`,
-        border: `1px solid ${primaryGray}`
+        height: `${(t.headerRowHeight + t.rowGap) + (taskCount * (t.rowHeight + t.rowGap))}px`
     }),
     dateContainer: ({displayPeriod}) => ({
-        gridRow: "2 / 3",
-        gridColumn: "2 / 3",
         display: "grid",
         gridTemplateColumns: `repeat(${displayPeriod}, ${t.colWidth}px)`,
-        gridTemplateAreas: "title taskBar"
+        gridTemplateAreas: "title taskBar",
     }),
     date: {
         borderLeft: `1px solid ${primaryGray}`,
@@ -27,8 +23,6 @@ const useStyles = createUseStyles({
         paddingTop: 3
     },
     monthContainer: ({displayPeriod}) => ({
-        gridRow: "1 / 2",
-        gridColumn: "2 / 3",
         display: "grid",
         gridTemplateColumns: `repeat(${displayPeriod}, ${t.colWidth}px)`
     }),
@@ -39,8 +33,6 @@ const useStyles = createUseStyles({
         paddingTop: 3
     }),
     task: {
-        gridRow: "1 / 3",
-        gridColumn: "1 / 2",
         justifySelf: "center",
         paddingTop: 20
     }
@@ -57,7 +49,6 @@ export const DateHeader = ({displayStartDate, displayPeriod, taskCount}) => {
 
     return (
         <div className={classes.dateHeader}>
-            <div className={classes.task}>Task</div>
             <div className={classes.monthContainer}>
                 {generateInner(displayPeriod, new Date(displayStartDate), (currentDate, idx) => (idx === 0 || currentDate.getDate() === 1) ? <div className={classes.month}>{currentDate.getMonth() + 1}</div> : <div />)}
             </div>
