@@ -14,7 +14,7 @@ const useStyles = createUseStyles({
         display: "grid",
         gridTemplateColumns: `${t.taskColWidth}px 1fr`,
         marginTop: 50,
-        maxWidth: `${t.taskColWidth + displayPeriod * t.colWidth + 1}px`,
+        maxWidth: `${t.taskColWidth + displayPeriod * t.colWidth + 2}px`,
         border: `1px solid ${primaryGray}`
     })
 })

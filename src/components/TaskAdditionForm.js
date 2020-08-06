@@ -12,7 +12,7 @@ import {formatDate} from "../helper/convertDate"
 const useStyles = createUseStyles({
     rangeDataPicker:{
         display: "grid",
-        gridTemplateColumns: "200px 200px"
+        gridTemplateColumns: "180px 180px"
     },
     form: {
         display: "grid",
@@ -22,9 +22,18 @@ const useStyles = createUseStyles({
     plusIcon: {
         fill: secondaryGray,
         cursor: "pointer",
-        filter: `drop-shadow(3px 3px 5px ${secondaryGray})`,
+        width: "70px",
+        height: "70px",
+        filter: `drop-shadow(1px 2px 2px ${secondaryGray})`,
+        transition: ".15s",
         "&:hover": {
             fill: primaryGray
+        },
+        "&:active": {
+            "-webkit-transform": "translateY(1px)",
+            transform: "translateY(1px)",
+            filter: "initial",
+            fill: secondaryGray
         }
     }
 })
@@ -57,7 +66,7 @@ export const TaskAdditionForm = () => {
         <form className={classes.form}>
             <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} />
             <RangeDataPicker startDateUseState={[startDate, setStartDate]} endDateUseState={[endDate, setEndDate]} />
-            <PlusIcon className={classes.plusIcon} onClick={() => createData("/tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})} />
+            <PlusIcon className={`${classes.plusIcon}`} onClick={() => createData("/tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})} />
         </form>
     )
 }
