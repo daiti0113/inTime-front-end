@@ -3,7 +3,7 @@ import {createUseStyles} from "react-jss"
 import {getDateDiff, formatDate} from "../helper/convertDate"
 import GridLayout from "react-grid-layout"
 import {hideAreaColCount, colWidth, rowHeight} from "../styles/table"
-import {store} from "../stores/taskStore"
+import {taskStore} from "../stores/taskStore"
 import {updateData} from "../helper/handleData"
 
 const useStyles = createUseStyles({
@@ -32,11 +32,12 @@ const createTaskDateUpdater = (dispatch, displayStartDate, task) => data => {
     updateData("/tasks", dispatch, {id: task.id, taskName: task.taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})
 }
 
+// TODO: Fix Bug to be able to change displayStartDate
 export const TaskBar = ({task, startDate, endDate, displayStartDate, displayPeriod}) => {
     const x = getDateDiff(displayStartDate, startDate) + hideAreaColCount + 1
     const w = getDateDiff(startDate, endDate) + 1
     const classes = useStyles({x, hideAreaColCount})
-    const {dispatch} = useContext(store)
+    const {dispatch} = useContext(taskStore)
     const updateTaskDate = createTaskDateUpdater(dispatch, displayStartDate, task)
 
     return (

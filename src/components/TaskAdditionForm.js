@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import PlusIcon from "../assets/plus.svg" 
 import {secondaryGray, primaryGray} from "../styles/color"
-import {store} from "../stores/taskStore"
+import {taskStore} from "../stores/taskStore"
 import {createData} from "../helper/handleData"
 import {formatDate} from "../helper/convertDate"
 
@@ -60,7 +60,7 @@ export const TaskAdditionForm = () => {
     const [taskName, setTaskName] = useState("")
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
-    const {state: {tasks}, dispatch} = useContext(store)
+    const {state: {tasks}, dispatch} = useContext(taskStore)
 
     return (
         <form className={classes.form}>

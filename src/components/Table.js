@@ -1,11 +1,13 @@
-import React, {useState, useEffect, useContext} from "react"
+import React, {useEffect, useContext} from "react"
 import {fetchData} from "../helper/handleData"
 import {createUseStyles} from "react-jss"
 import * as t from "../styles/table"
 import {TaskListContainer} from "./TaskListContainer"
-import {store} from "../stores/taskStore"
+import {taskStore} from "../stores/taskStore"
+import {displaySettingStore} from "../stores/displaySettingStore"
 import {TaskNameContainer} from "./TaskNameContainer"
 import {primaryGray} from "../styles/color"
+import {DisplaySettingForm} from "./DisplaySettingForm"
 
 // TODO: Change taskName to something easy to understand
 // TODO: Use style constants
@@ -21,20 +23,20 @@ const useStyles = createUseStyles({
 
 // MEMO: Move state "tasks" to TaskBar.js ??
 export const Table = () => {
-    const [displayStartDate, setDisplayStartDate] = useState(new Date())
-    const [displayPeriod, setDisplayPeriod] = useState(31)
-    const {state, dispatch} = useContext(store)
-    const {tasks} = state
+    const {state: {tasks}, dispatch} = useContext(taskStore)
+    const {state: {displayPeriod}} = useContext(displaySettingStore)
     const taskCount = tasks.length
-    const classes = useStyles({displayPeriod, taskCount})
+    const classes = useStyles({displayPeriod: displayPeriod, taskCount})
 
     fetchData(useEffect, "/tasks", dispatch)
 
     return (
-        <div className={classes.table}>
-            <TaskNameContainer tasks={tasks} />
-            {/* <DateHeader displayStartDate={displayStartDate} displayPeriod={displayPeriod} taskCount={taskCount} /> */}
-            <TaskListContainer tasks={tasks} displayPeriod={displayPeriod} displayStartDate={displayStartDate} taskCount={taskCount} />
-        </div>
+        <>
+            <DisplaySettingForm />
+            <div className={classes.table}>
+                <TaskNameContainer tasks={tasks} />
+                <TaskListContainer tasks={tasks} taskCount={taskCount} />
+            </div>
+        </>
     )
 }

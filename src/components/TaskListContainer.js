@@ -1,9 +1,10 @@
-import React from "react"
+import React, {useContext} from "react"
 import {createUseStyles} from "react-jss"
 import {TaskBar} from "./TaskBar"
 import {primaryGray} from "../styles/color"
 import * as t from "../styles/table"
 import {DateHeader} from "./DateHeader"
+import {displaySettingStore} from "../stores/displaySettingStore"
 
 // TODO: Change taskName to something easy to understand
 // TODO: Use style constants
@@ -24,8 +25,9 @@ const useStyles = createUseStyles({
     })
 })
 
-export const TaskListContainer = ({tasks, displayPeriod, displayStartDate, taskCount}) => {
+export const TaskListContainer = ({tasks, taskCount}) => {
     const classes = useStyles({displayPeriod, taskCount})
+    const {state: {displayStartDate, displayPeriod}} = useContext(displaySettingStore)
 
     return (
         <div className={classes.taskListContainer}>
