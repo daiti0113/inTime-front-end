@@ -18,7 +18,7 @@ const DisplaySettingProvider = ({children}) => {
             case "UPDATE_DISPLAY_START_DATE":
                 return {...state, displayStartDate: action.payload}
             case "UPDATE_DISPLAY_PERIOD":
-                return {...state, displayPeriod: action.payload}
+                return {...state, displayPeriod: action.payload - 0}
             default:
                 return {...state}
         }
