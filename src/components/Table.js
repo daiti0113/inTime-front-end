@@ -24,8 +24,9 @@ const useStyles = createUseStyles({
 // MEMO: Move state "tasks" to TaskBar.js ??
 export const Table = () => {
     const {state: {tasks}, dispatch} = useContext(taskStore)
-    const {state: {displayPeriod}} = useContext(displaySettingStore)
-    const taskCount = tasks.length
+    const {state: {displayPeriod, displayStartDate}} = useContext(displaySettingStore)
+    const displayTasks = tasks.filter(task => new Date(task.endDate) > displayStartDate)
+    const taskCount = displayTasks.length
     const classes = useStyles({displayPeriod: displayPeriod, taskCount})
 
     fetchData(useEffect, "/tasks", dispatch)
@@ -34,8 +35,8 @@ export const Table = () => {
         <>
             <DisplaySettingForm />
             <div className={classes.table}>
-                <TaskNameContainer tasks={tasks} />
-                <TaskListContainer tasks={tasks} taskCount={taskCount} />
+                <TaskNameContainer tasks={displayTasks} />
+                <TaskListContainer tasks={displayTasks} taskCount={taskCount} />
             </div>
         </>
     )
