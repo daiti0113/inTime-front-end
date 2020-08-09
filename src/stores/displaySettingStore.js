@@ -2,7 +2,7 @@ import React, {createContext, useReducer} from "react"
 
 const initialState = {
     displayStartDate: new Date(),
-    displayPeriod: 31
+    displayPeriod: 30
 }
 
 // Define Store

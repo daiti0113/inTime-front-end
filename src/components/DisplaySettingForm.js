@@ -15,7 +15,7 @@ const DisplayPeriodInput = ({dispatch}) => (
         <label htmlFor="displayPeriod">Display Period</label>
         <select id="displayPeriod" onChange={e => setDisplayPeriod(dispatch, e.target.value)}>
             <option value={40}>40</option>
-            <option value={30}>30</option>
+            <option value={30} selected>30</option>
             <option value={20}>20</option>
         </select>
     </div>
