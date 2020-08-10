@@ -1,0 +1,1 @@
+export const useSomeContexts = (useContext, stores=[]) => stores.map(store => useContext(store))
