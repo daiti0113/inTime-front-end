@@ -3,11 +3,12 @@ import {createUseStyles} from "react-jss"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import {displaySettingStore} from "../stores/displaySettingStore"
+import {formatDate} from "../helper/convertDate"
 
 const useStyles = createUseStyles({
 })
 
-const setDisplayStartDate = (dispatch, date) => dispatch({type: "UPDATE_DISPLAY_START_DATE", payload: date})
+const setDisplayStartDate = (dispatch, date) => dispatch({type: "UPDATE_DISPLAY_START_DATE", payload: new Date(formatDate(date))})
 const setDisplayPeriod = (dispatch, value) => dispatch({type: "UPDATE_DISPLAY_PERIOD", payload: value})
 
 const DisplayPeriodInput = ({dispatch}) => (

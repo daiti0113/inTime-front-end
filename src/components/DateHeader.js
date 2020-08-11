@@ -39,7 +39,6 @@ const useStyles = createUseStyles({
 })
 
 const generateInner = (displayPeriod, dateCounter, Element) => range(displayPeriod).map((_, idx) => {
-    console.log("displayPeriod", displayPeriod)
     const currentDate = new Date(dateCounter)
     dateCounter.setDate(dateCounter.getDate() + 1)
     return Element(currentDate, idx)

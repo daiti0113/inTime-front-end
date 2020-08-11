@@ -13,7 +13,6 @@ const {Provider} = displaySettingStore
 const DisplaySettingProvider = ({children}) => {
     // Define Reducer
     const [state, dispatch] = useReducer((state, action) => {
-        console.log(action.payload)
         switch (action.type) {
             case "UPDATE_DISPLAY_START_DATE":
                 return {...state, displayStartDate: action.payload}

@@ -37,7 +37,7 @@ const createTaskDateUpdater = (dispatch, displayStartDate, task) => data => {
 export const TaskBar = ({task, startDate, endDate}) => {
     const [{state: {displayPeriod, displayStartDate}}, {dispatch}] = useSomeContexts(useContext, [displaySettingStore, taskStore])
     const updateTaskDate = createTaskDateUpdater(dispatch, displayStartDate, task)
-    const x = getDateDiff(displayStartDate, startDate) + hideAreaColCount + 1
+    const x = getDateDiff(displayStartDate, startDate) + hideAreaColCount
     const w = getDateDiff(startDate, endDate) + 1
     const classes = useStyles({x})
 

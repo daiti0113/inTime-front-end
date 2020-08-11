@@ -8,6 +8,7 @@ import {displaySettingStore} from "../stores/displaySettingStore"
 import {TaskNameContainer} from "./TaskNameContainer"
 import {primaryGray} from "../styles/color"
 import {DisplaySettingForm} from "./DisplaySettingForm"
+import {formatDate} from "../helper/convertDate"
 
 // TODO: Change taskName to something easy to understand
 // TODO: Use style constants
@@ -25,7 +26,7 @@ const useStyles = createUseStyles({
 export const Table = () => {
     const {state: {tasks}, dispatch} = useContext(taskStore)
     const {state: {displayPeriod, displayStartDate}} = useContext(displaySettingStore)
-    const displayTasks = tasks.filter(task => new Date(task.endDate) > displayStartDate)
+    const displayTasks = tasks.filter(task => new Date(formatDate(task.endDate)) >= displayStartDate)
     const taskCount = displayTasks.length
     const classes = useStyles({displayPeriod: displayPeriod, taskCount})
 
