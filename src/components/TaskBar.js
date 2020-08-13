@@ -1,4 +1,4 @@
-import React, {useContext} from "react"
+import React, {useContext, useState} from "react"
 import {createUseStyles} from "react-jss"
 import {getDateDiff, formatDate} from "../helper/convertDate"
 import GridLayout from "react-grid-layout"
@@ -34,22 +34,31 @@ const createTaskDateUpdater = (dispatch, displayStartDate, task) => data => {
     updateData("/tasks", dispatch, {id: task.id, taskName: task.taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})
 }
 
+const handleDragStop = (data, updateTaskDate, isClicked, setIsClicked) => {
+    isClicked && updateTaskDate(data[0])
+    setIsClicked(false)
+}
+
+const handleClick = (isClicked) => isClicked ? console.log("clicked!") : console.log("dragging!")
+
+// eslint-disable-next-line max-lines-per-function
 export const TaskBar = ({task, startDate, endDate}) => {
     const [{state: {displayPeriod, displayStartDate}}, {dispatch}] = useSomeContexts(useContext, [displaySettingStore, taskStore])
     const updateTaskDate = createTaskDateUpdater(dispatch, displayStartDate, task)
     const x = getDateDiff(displayStartDate, startDate) + hideAreaColCount
     const w = getDateDiff(startDate, endDate) + 1
     const classes = useStyles({x})
+    const [isClicked, setIsClicked] = useState(false)
 
     return (
         <div className={classes.container}>
             <GridLayout 
                 className={`layout ${classes.barContainer}`} cols={hideAreaColCount * 2 + displayPeriod}
                 rowHeight={30} width={colWidth * (hideAreaColCount * 2 + displayPeriod)} margin={[0, 0]}
-                layout={[{x: x, y: 0, w: w, h: 1, maxH: 1}]}
-                onResizeStop={data => updateTaskDate(data[0])} onDragStop={data => updateTaskDate(data[0])}
+                layout={[{x: x, y: 0, w: w, h: 1, maxH: 1}]} onDragStart={() => setIsClicked(true)}
+                onResizeStop={data => updateTaskDate(data[0])} onDragStop={data => handleDragStop(data, updateTaskDate, isClicked, setIsClicked)}
             >
-                <div className={`${classes.bar} border border-${Math.floor( Math.random() * 5 ) + 2}`} key={task.id} data-grid={{x: x, y: 0, w: w, h: 1, maxH: 1}}>{task.taskName}</div>
+                <div className={`${classes.bar} border border-${Math.floor( Math.random() * 5 ) + 2}`} key={task.id}data-grid={{x: x, y: 0, w: w, h: 1, maxH: 1}} onClick={() => handleClick(isClicked)}>{task.taskName}</div>
             </GridLayout>
         </div>
     )
