@@ -61,7 +61,7 @@ export const TaskBar = ({task, startDate, endDate}) => {
             >
                 <div className={`${classes.bar} border border-${Math.floor( Math.random() * 5 ) + 2}`} key={task.id}data-grid={{x: x, y: 0, w: w, h: 1, maxH: 1}} onClick={() => handleClick(isClicked, setModalOpen)}>{task.taskName}</div>
             </GridLayout>
-            {modalOpen && <TaskEditModal modalOpen={modalOpen} />}
+            {modalOpen && <TaskEditModal modalOpen={modalOpen} setModalOpen={setModalOpen} task={task} />}
         </div>
     )
 }

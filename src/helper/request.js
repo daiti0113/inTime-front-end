@@ -16,7 +16,7 @@ export const request = (method, endpoint, param) => {
             res = axios.put(base_url + endpoint, param)
             break
         case "DELETE":
-            res = ""
+            res = axios.delete(base_url + endpoint, param)
             break
     }
     return res

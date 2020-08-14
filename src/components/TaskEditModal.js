@@ -1,5 +1,7 @@
-import React from "react"
+import React, {useContext} from "react"
 import {createUseStyles} from "react-jss"
+import {deleteData} from "../helper/handleData"
+import {taskStore} from "../stores/taskStore"
 
 const useStyles = createUseStyles({
     modal: ({modalOpen}) => ({
@@ -11,18 +13,17 @@ const useStyles = createUseStyles({
     })
 })
 
-export const TaskEditModal = ({modalOpen}) => {
+export const TaskEditModal = ({modalOpen, setModalOpen, task}) => {
     const classes = useStyles({modalOpen})
+    const {dispatch} = useContext(taskStore)
 
     return (
         <div className={`modal ${classes.modal}`}>
             <label className="modal-bg" htmlFor="modal-1"></label>
             <div className={`modal-body ${classes.modalBody}`}>
-                <label className="btn-close" htmlFor="modal-1">X</label>
-                <h4 className="modal-title">Modal Title</h4>
-                <h5 className="modal-subtitle">Modal Subtitle</h5>
-                <p className="modal-text">This is an example of modal which is implemented with pure CSS! :D</p>
-                <label htmlFor="modal-1">Nice!</label>
+                <label className="btn-close" htmlFor="modal-1" onClick={() => setModalOpen(false)}>X</label>
+                <h4 className="modal-title">{task.taskName}</h4>
+                <label htmlFor="modal-1" onClick={() => deleteData("/tasks", dispatch, task.id)}>Delete</label>
             </div>
         </div>
     )

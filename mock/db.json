@@ -36,5 +36,8 @@
     },
     "tasks_put": {
         "data": "OK"
+    },
+    "tasks_delete": {
+        "data": "OK"
     }
 }

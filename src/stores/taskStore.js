@@ -10,6 +10,7 @@ const {Provider} = taskStore
 const TaskProvider = ({children}) => {
     // Define Reducer
     const [state, dispatch] = useReducer((state, action) => {
+        // TODO: Rename type
         switch (action.type) {
             case "FETCH_TASKS":
                 return {...state, tasks: action.payload}
@@ -17,6 +18,8 @@ const TaskProvider = ({children}) => {
                 return {...state, tasks: state.tasks.map(task => task.id === action.payload.id ? {...task, ...action.payload} : task)}
             case "CREATE_TASKS":
                 return {...state, tasks: state.tasks.concat(action.payload)}
+            case "DELETE_TASKS":
+                return {...state, tasks: state.tasks.filter(task => task.id !== action.payload)}
             default:
                 return {...state}
         }

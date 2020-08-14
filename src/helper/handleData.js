@@ -21,3 +21,8 @@ export const createData = (path, dispatch, payload) => {
     request("POST", path, payload)
     dispatch({type: `CREATE_${pathToType(path)}`, payload: payload})
 }
+
+export const deleteData = (path, dispatch, payload) => {
+    request("DELETE", path, payload)
+    dispatch({type: `DELETE_${pathToType(path)}`, payload: payload})
+}
