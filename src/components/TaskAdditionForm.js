@@ -66,7 +66,7 @@ export const TaskAdditionForm = () => {
         <form className={classes.form}>
             <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} />
             <RangeDataPicker startDateUseState={[startDate, setStartDate]} endDateUseState={[endDate, setEndDate]} />
-            <PlusIcon className={`${classes.plusIcon}`} onClick={() => createData("/tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})} />
+            <PlusIcon className={`${classes.plusIcon}`} onClick={() => createData("tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})} />
         </form>
     )
 }

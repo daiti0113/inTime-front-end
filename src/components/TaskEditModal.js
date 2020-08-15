@@ -23,7 +23,7 @@ export const TaskEditModal = ({modalOpen, setModalOpen, task}) => {
             <div className={`modal-body ${classes.modalBody}`}>
                 <label className="btn-close" htmlFor="modal-1" onClick={() => setModalOpen(false)}>X</label>
                 <h4 className="modal-title">{task.taskName}</h4>
-                <label htmlFor="modal-1" onClick={() => deleteData("/tasks", dispatch, task.id)}>Delete</label>
+                <label htmlFor="modal-1" onClick={() => deleteData("tasks", dispatch, task.id)}>Delete</label>
             </div>
         </div>
     )

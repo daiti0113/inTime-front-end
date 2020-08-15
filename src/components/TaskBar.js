@@ -32,7 +32,7 @@ const createTaskDateUpdater = (dispatch, displayStartDate, task) => data => {
     const endDate = new Date(displayStartDate)
     startDate.setDate(startDate.getDate() + data.x - hideAreaColCount)
     endDate.setDate(startDate.getDate() + data.w - 1)
-    updateData("/tasks", dispatch, {id: task.id, taskName: task.taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})
+    updateData("tasks", dispatch, {id: task.id, taskName: task.taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})
 }
 
 const handleDragStop = (data, updateTaskDate, isClicked, setIsClicked) => {

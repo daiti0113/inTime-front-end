@@ -1,22 +1,22 @@
-import axios from "axios"
+import {firestore} from "./firebase"
 
-// eslint-disable-next-line no-undef
-const base_url = process.env.API_ROOT
-
-export const request = (method, endpoint, param) => {
-    let res = {}
+// eslint-disable-next-line max-lines-per-function
+export const request = async (method, endpoint, param) => {
+    const collection = firestore.db.collection(endpoint)
+    let res = []
     switch (method) {
         case "GET":
-            res = axios.get(base_url + endpoint)
+            // eslint-disable-next-line no-case-declarations
+            const querySnapshot = await collection.get()
+            querySnapshot.forEach(doc => res.push(doc.data()))
+            console.log(res)
             break
         case "POST":
-            res = axios.post(base_url + endpoint, param)
+            res = await collection.add(param)
             break
         case "PUT":
-            res = axios.put(base_url + endpoint, param)
             break
         case "DELETE":
-            res = axios.delete(base_url + endpoint, param)
             break
     }
     return res

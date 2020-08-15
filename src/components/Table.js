@@ -30,7 +30,7 @@ export const Table = () => {
     const taskCount = displayTasks.length
     const classes = useStyles({displayPeriod: displayPeriod, taskCount})
 
-    fetchData(useEffect, "/tasks", dispatch)
+    fetchData(useEffect, "tasks", dispatch)
 
     return (
         <>
