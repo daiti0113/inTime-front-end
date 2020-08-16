@@ -50,10 +50,10 @@ export const DateHeader = ({displayStartDate, displayPeriod, taskCount}) => {
     return (
         <div className={classes.dateHeader}>
             <div className={classes.monthContainer}>
-                {generateInner(displayPeriod, new Date(displayStartDate), (currentDate, idx) => (idx === 0 || currentDate.getDate() === 1) ? <div className={classes.month}>{currentDate.getMonth() + 1}</div> : <div />)}
+                {generateInner(displayPeriod, new Date(displayStartDate), (currentDate, idx) => (idx === 0 || currentDate.getDate() === 1) ? <div className={classes.month} key={idx}>{currentDate.getMonth() + 1}</div> : <div key={idx} />)}
             </div>
             <div className={classes.dateContainer}>
-                {generateInner(displayPeriod, new Date(displayStartDate), (currentDate) => <div className={classes.date}>{currentDate.getDate()}</div>)}
+                {generateInner(displayPeriod, new Date(displayStartDate), (currentDate, idx) => <div className={classes.date} key={idx}>{currentDate.getDate()}</div>)}
             </div>
         </div>
     )
