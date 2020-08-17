@@ -4,7 +4,9 @@
   "description": "front-end of free gantt chart",
   "main": "index.html",
   "scripts": {
+    "start": "NODE_ENV=prd parcel index.html -d public",
     "dev": "NODE_ENV=dev parcel index.html",
+    "build": "NODE_ENV=prd parcel build index.html",
     "mock": "NODE_ENV=dev node ./mock/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "patch-package"

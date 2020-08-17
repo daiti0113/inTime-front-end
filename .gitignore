@@ -1,4 +1,6 @@
 node_modules
 .cache/
+.firebase/
 dist/
 .env.dev
+.env.prd
