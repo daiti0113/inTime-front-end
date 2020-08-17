@@ -1,0 +1,28 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daiti0113/inTime-front-end.git"
+  },
+  "author": "daiti0113",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daiti0113/inTime-front-end/issues"
+  },
+  "homepage": "https://github.com/daiti0113/inTime-front-end#readme",
+  "dependencies": {
+    "basic-auth-connect": "^1.0.0",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.1.0",
+    "firebase-functions": "^3.9.1",
+    "ip-range-check": "^0.2.0",
+    "is_js": "^0.9.0",
+    "request-ip": "^2.1.3"
+  }
+}
