@@ -1,7 +1,9 @@
 import React, {createContext, useReducer} from "react"
+import {formatDate} from "../helper/convertDate"
 
 const initialState = {
-    displayStartDate: new Date(),
+    // Set today's date to midnight
+    displayStartDate: new Date(formatDate(new Date())),
     displayPeriod: 30
 }
 
