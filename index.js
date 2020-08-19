@@ -5,6 +5,7 @@ import {Header} from "./src/components/Header"
 import {Top} from "./src/components/Top"
 import {createUseStyles} from "react-jss"
 import "@babel/polyfill"
+import {UserProvider} from "./src/stores/userStore"
 
 const useStyles = createUseStyles({
     app: {
@@ -17,8 +18,10 @@ const App = () => {
 
     return (
         <div className={classes.app}>
-            <Header />
-            <Top />
+            <UserProvider>
+                <Header />
+                <Top />
+            </UserProvider>
         </div>
     )
 }
