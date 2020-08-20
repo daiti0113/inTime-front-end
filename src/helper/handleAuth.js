@@ -1,6 +1,21 @@
-import {auth} from "./firebase"
+import {firestore} from "./firebase"
 
-export const signin = async (dispatch, id, password) => {
-    const response = await auth.signInWithEmailAndPassword(id, password)
-    dispatch({type: "LOGIN_SUCCESS", payload: response})
+const getLoginSuccessState = res => ({
+    loggedIn: true,
+    name: res.user.displayName,
+    email: res.user.email
+})
+
+const getLoginFailureState = res => ({
+    errorCode: res.code,
+    errorMessage: res.message
+})
+
+export const login = async (dispatch, id, password) => {
+    try {
+        const response = await firestore.auth.signInWithEmailAndPassword(id, password)
+        dispatch({type: "LOGIN_SUCCESS", payload: getLoginSuccessState(response)})
+    } catch (e) {
+        dispatch({type: "LOGIN_FAILURE", payload: getLoginFailureState(e)}) 
+    }
 }

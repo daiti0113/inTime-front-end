@@ -2,8 +2,13 @@ import React, {createContext, useReducer} from "react"
 
 const initialState = {
     user: {
+        loggedIn: false,
         name: "",
-        loggedIn: false
+        email: ""
+    },
+    error: {
+        errorCode: "",
+        errorMessage: ""
     }
 }
 
@@ -17,13 +22,14 @@ const UserProvider = ({children}) => {
     const [state, dispatch] = useReducer((state, action) => {
         switch (action.type) {
             case "LOGIN_SUCCESS":
-                return {...state}
+                return {...state, ...{user: action.payload}}
             case "LOGIN_FAILURE":
-                return {...state}
+                return {...state, ...{error: action.payload}}
             default:
                 return {...state}
         }
     }, initialState)
+    console.log(state)
     return <Provider value={{state, dispatch}}>{children}</Provider>
 }
 
