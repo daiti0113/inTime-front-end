@@ -5,6 +5,7 @@ import * as t from "../styles/table"
 import {TaskListContainer} from "./TaskListContainer"
 import {taskStore} from "../stores/taskStore"
 import {displaySettingStore} from "../stores/displaySettingStore"
+import {userStore} from "../stores/userStore"
 import {TaskNameContainer} from "./TaskNameContainer"
 import {primaryGray} from "../styles/color"
 import {DisplaySettingForm} from "./DisplaySettingForm"
@@ -26,11 +27,13 @@ const useStyles = createUseStyles({
 export const Table = () => {
     const {state: {tasks}, dispatch} = useContext(taskStore)
     const {state: {displayPeriod, displayStartDate}} = useContext(displaySettingStore)
+    const {state: {user}} = useContext(userStore)
     const displayTasks = tasks.filter(task => new Date(formatDate(task.endDate)) >= displayStartDate)
     const taskCount = displayTasks.length
     const classes = useStyles({displayPeriod: displayPeriod, taskCount})
 
-    fetchData(useEffect, "tasks", dispatch)
+    console.log(user.uid)
+    fetchData(useEffect, "tasks", dispatch, {uid: user.uid})
 
     return (
         <>

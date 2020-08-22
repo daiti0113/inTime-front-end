@@ -1,8 +1,9 @@
 import {firestore} from "./firebase"
 
 // eslint-disable-next-line max-lines-per-function
-export const request = async (method, endpoint, param) => {
-    const collection = firestore.db.collection(endpoint)
+export const request = async (method, endpoint, params={uid: ""}) => {
+    const collection = firestore.db.collection("users").doc(params.uid).collection(endpoint)
+    console.log(collection)
     let res = []
     switch (method) {
         case "GET":
@@ -12,16 +13,16 @@ export const request = async (method, endpoint, param) => {
             break
         case "POST":
             // eslint-disable-next-line no-case-declarations
-            const doc = await collection.add(param)
-            res = {...param, id: doc.id}
+            const doc = await collection.add(params)
+            res = {...params, id: doc.id}
             break
         case "PUT":
-            await collection.doc(param.id).set(param, {merge: true})
-            res = param
+            await collection.doc(params.id).set(params, {merge: true})
+            res = params
             break
         case "DELETE":
-            await collection.doc(param).delete()
-            res = param
+            await collection.doc(params).delete()
+            res = params
             break
     }
     return res

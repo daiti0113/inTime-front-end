@@ -4,7 +4,8 @@ const initialState = {
     user: {
         loggedIn: false,
         name: "",
-        email: ""
+        email: "",
+        uid: ""
     },
     error: {
         errorCode: "",

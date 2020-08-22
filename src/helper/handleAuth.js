@@ -3,7 +3,8 @@ import {firestore} from "./firebase"
 const getLoginSuccessState = res => ({
     loggedIn: true,
     name: res.user.displayName,
-    email: res.user.email
+    email: res.user.email,
+    uid: res.user.uid
 })
 
 const getLoginFailureState = res => ({

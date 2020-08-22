@@ -2,10 +2,10 @@ import {request} from "./request"
 
 const pathToType = path => path.replace("/", "").toUpperCase()
 
-export const fetchData = (useEffect, path, dispatch, trigger=[]) => {
+export const fetchData = (useEffect, path, dispatch, payload={uid: ""}, trigger=[]) => {
     useEffect(() => {
         const getRequest = async () => {
-            const response = await request("GET", path)
+            const response = await request("GET", path, payload)
             await dispatch({type: `FETCH_${pathToType(path)}`, payload: response})    
         }
         getRequest()
