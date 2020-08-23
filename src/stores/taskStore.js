@@ -19,7 +19,7 @@ const TaskProvider = ({children}) => {
             case "CREATE_TASKS":
                 return {...state, tasks: state.tasks.concat(action.payload)}
             case "DELETE_TASKS":
-                return {...state, tasks: state.tasks.filter(task => task.id !== action.payload)}
+                return {...state, tasks: state.tasks.filter(task => task.id !== action.payload.id)}
             default:
                 return {...state}
         }

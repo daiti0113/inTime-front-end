@@ -5,6 +5,7 @@ import GridLayout from "react-grid-layout"
 import {hideAreaColCount, colWidth, rowHeight} from "../styles/table"
 import {taskStore} from "../stores/taskStore"
 import {displaySettingStore} from "../stores/displaySettingStore"
+import {userStore} from "../stores/userStore"
 import {updateData} from "../helper/handleData"
 import {useSomeContexts} from "../helper/useSomeContexts"
 import {TaskEditModal} from "./TaskEditModal"
@@ -27,12 +28,12 @@ const useStyles = createUseStyles({
     }
 })
 
-const createTaskDateUpdater = (dispatch, displayStartDate, task) => data => {
+const createTaskDateUpdater = (dispatch, displayStartDate, task, uid) => data => {
     const startDate = new Date(displayStartDate)
     const endDate = new Date(displayStartDate)
     startDate.setDate(startDate.getDate() + data.x - hideAreaColCount)
     endDate.setDate(startDate.getDate() + data.w - 1)
-    updateData("tasks", dispatch, {id: task.id, taskName: task.taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})
+    updateData("tasks", dispatch, {id: task.id, taskName: task.taskName, startDate: formatDate(startDate), endDate: formatDate(endDate), uid: uid})
 }
 
 const handleDragStop = (data, updateTaskDate, isClicked, setIsClicked) => {
@@ -44,8 +45,8 @@ const handleClick = (isClicked, setModalOpen) => isClicked && setModalOpen(true)
 
 // eslint-disable-next-line max-lines-per-function
 export const TaskBar = ({task, startDate, endDate}) => {
-    const [{state: {displayPeriod, displayStartDate}}, {dispatch}] = useSomeContexts(useContext, [displaySettingStore, taskStore])
-    const updateTaskDate = createTaskDateUpdater(dispatch, displayStartDate, task)
+    const [{state: {displayPeriod, displayStartDate}}, {dispatch}, {state: {user}}] = useSomeContexts(useContext, [displaySettingStore, taskStore, userStore])
+    const updateTaskDate = createTaskDateUpdater(dispatch, displayStartDate, task, user.uid)
     const x = getDateDiff(displayStartDate, startDate) + hideAreaColCount
     const w = getDateDiff(startDate, endDate) + 1
     const classes = useStyles({x})

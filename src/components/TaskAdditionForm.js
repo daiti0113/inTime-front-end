@@ -6,8 +6,10 @@ import "react-datepicker/dist/react-datepicker.css"
 import PlusIcon from "../assets/plus.svg" 
 import {secondaryGray, primaryGray} from "../styles/color"
 import {taskStore} from "../stores/taskStore"
+import {userStore} from "../stores/userStore"
 import {createData} from "../helper/handleData"
 import {formatDate} from "../helper/convertDate"
+import {useSomeContexts} from "../helper/useSomeContexts"
 
 const useStyles = createUseStyles({
     rangeDataPicker:{
@@ -60,13 +62,13 @@ export const TaskAdditionForm = () => {
     const [taskName, setTaskName] = useState("")
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
-    const {state: {tasks}, dispatch} = useContext(taskStore)
+    const [{state: {tasks}, dispatch}, {state: {user}}] = useSomeContexts(useContext, [taskStore, userStore])
 
     return (
         <form className={classes.form}>
             <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} />
             <RangeDataPicker startDateUseState={[startDate, setStartDate]} endDateUseState={[endDate, setEndDate]} />
-            <PlusIcon className={`${classes.plusIcon}`} onClick={() => createData("tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate)})} />
+            <PlusIcon className={`${classes.plusIcon}`} onClick={() => createData("tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate), uid: user.uid})} />
         </form>
     )
 }

@@ -32,7 +32,6 @@ export const Table = () => {
     const taskCount = displayTasks.length
     const classes = useStyles({displayPeriod: displayPeriod, taskCount})
 
-    console.log(user.uid)
     fetchData(useEffect, "tasks", dispatch, {uid: user.uid})
 
     return (

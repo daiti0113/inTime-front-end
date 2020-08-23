@@ -2,6 +2,8 @@ import React, {useContext} from "react"
 import {createUseStyles} from "react-jss"
 import {deleteData} from "../helper/handleData"
 import {taskStore} from "../stores/taskStore"
+import {userStore} from "../stores/userStore"
+import {useSomeContexts} from "../helper/useSomeContexts"
 
 const useStyles = createUseStyles({
     modal: ({modalOpen}) => ({
@@ -15,7 +17,7 @@ const useStyles = createUseStyles({
 
 export const TaskEditModal = ({modalOpen, setModalOpen, task}) => {
     const classes = useStyles({modalOpen})
-    const {dispatch} = useContext(taskStore)
+    const [{dispatch}, {state: {user}}] = useSomeContexts(useContext, [taskStore, userStore])
 
     return (
         <div className={`modal ${classes.modal}`}>
@@ -23,7 +25,7 @@ export const TaskEditModal = ({modalOpen, setModalOpen, task}) => {
             <div className={`modal-body ${classes.modalBody}`}>
                 <label className="btn-close" htmlFor="modal-1" onClick={() => setModalOpen(false)}>X</label>
                 <h4 className="modal-title">{task.taskName}</h4>
-                <label htmlFor="modal-1" onClick={() => deleteData("tasks", dispatch, task.id)}>Delete</label>
+                <label htmlFor="modal-1" onClick={() => deleteData("tasks", dispatch, {id: task.id, uid: user.uid})}>Delete</label>
             </div>
         </div>
     )
