@@ -12,10 +12,12 @@ const getLoginFailureState = res => ({
     errorMessage: res.message
 })
 
-export const login = async (dispatch, id, password) => {
+export const login = async (e, dispatch, id, password, navigate) => {
     try {
+        e.preventDefault()
         const response = await firestore.auth.signInWithEmailAndPassword(id, password)
         dispatch({type: "LOGIN_SUCCESS", payload: getLoginSuccessState(response)})
+        navigate("/")
     } catch (e) {
         dispatch({type: "LOGIN_FAILURE", payload: getLoginFailureState(e)}) 
     }

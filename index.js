@@ -2,10 +2,10 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import {Header} from "./src/components/Header"
-import {Top} from "./src/components/Top"
 import {createUseStyles} from "react-jss"
 import "@babel/polyfill"
 import {UserProvider} from "./src/stores/userStore"
+import {Router} from "./src/route"
 
 const useStyles = createUseStyles({
     app: {
@@ -20,7 +20,7 @@ const App = () => {
         <div className={classes.app}>
             <UserProvider>
                 <Header />
-                <Top />
+                <Router />
             </UserProvider>
         </div>
     )
