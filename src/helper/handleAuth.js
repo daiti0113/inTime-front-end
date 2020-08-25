@@ -7,18 +7,28 @@ const getLoginSuccessState = res => ({
     uid: res.user.uid
 })
 
-const getLoginFailureState = res => ({
+const getFailureState = res => ({
     errorCode: res.code,
     errorMessage: res.message
 })
 
-export const login = async (e, dispatch, id, password, navigate) => {
+export const login = async (e, dispatch, email, password, navigate) => {
     try {
         e.preventDefault()
-        const response = await firestore.auth.signInWithEmailAndPassword(id, password)
+        const response = await firestore.auth.signInWithEmailAndPassword(email, password)
         dispatch({type: "LOGIN_SUCCESS", payload: getLoginSuccessState(response)})
         navigate("/")
     } catch (e) {
-        dispatch({type: "LOGIN_FAILURE", payload: getLoginFailureState(e)}) 
+        dispatch({type: "LOGIN_FAILURE", payload: getFailureState(e)}) 
+    }
+}
+
+export const signup = async (e, dispatch, email, password, navigate) => {
+    try {
+        e.preventDefault()
+        await firestore.auth.createUserWithEmailAndPassword(email, password)
+        navigate("/login")
+    } catch (e) {
+        dispatch({type: "SIGNUP_FAILURE", payload: getFailureState(e)}) 
     }
 }

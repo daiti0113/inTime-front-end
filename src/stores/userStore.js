@@ -25,6 +25,7 @@ const UserProvider = ({children}) => {
             case "LOGIN_SUCCESS":
                 return {...state, ...{user: action.payload}}
             case "LOGIN_FAILURE":
+            case "SIGNUP_FAILURE":
                 return {...state, ...{error: action.payload}}
             default:
                 return {...state}
