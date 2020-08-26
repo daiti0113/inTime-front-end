@@ -4,7 +4,7 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "firebaseAuth"
+        "destination": "/index.html"
       }
     ],
     "ignore": [
@@ -12,8 +12,5 @@
       "**/.*",
       "**/node_modules/**"
     ]
-  },
-  "functions": {
-    "runtime": "nodejs8"
   }
 }
