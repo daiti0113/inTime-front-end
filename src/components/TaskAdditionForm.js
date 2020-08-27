@@ -21,9 +21,9 @@ const useStyles = createUseStyles({
         gridTemplateColumns: "250px 450px 100px",
         alignItems: "center"
     },
-    plusIcon: {
+    plusIcon: ({taskName}) => ({
         fill: secondaryGray,
-        cursor: "pointer",
+        cursor: taskName ? "pointer" : "not-allowed",
         width: "70px",
         height: "70px",
         filter: `drop-shadow(1px 2px 2px ${secondaryGray})`,
@@ -31,17 +31,17 @@ const useStyles = createUseStyles({
         "&:hover": {
             fill: primaryGray
         },
-        "&:active": {
+        "&:active": taskName ? {
             "-webkit-transform": "translateY(1px)",
             transform: "translateY(1px)",
             filter: "initial",
             fill: secondaryGray
-        }
-    }
+        } : {}
+    })
 })
 
 const RangeDataPicker = ({startDateUseState: [startDate, setStartDate], endDateUseState: [endDate, setEndDate]}) => {
-    const classes = useStyles()
+    const classes = useStyles({})
 
     return (
         <div className={classes.rangeDataPicker}>
@@ -57,18 +57,22 @@ const RangeDataPicker = ({startDateUseState: [startDate, setStartDate], endDateU
     )
 }
 
+const handleClick = (dispatch, tasks, user, {taskName, startDate, endDate}) => {
+    taskName && createData("tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate), uid: user.uid})
+}
+
 export const TaskAdditionForm = () => {
-    const classes = useStyles()
     const [taskName, setTaskName] = useState("")
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
+    const classes = useStyles({taskName})
     const [{state: {tasks}, dispatch}, {state: {user}}] = useSomeContexts(useContext, [taskStore, userStore])
 
     return (
         <form className={classes.form}>
             <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} />
             <RangeDataPicker startDateUseState={[startDate, setStartDate]} endDateUseState={[endDate, setEndDate]} />
-            <PlusIcon className={`${classes.plusIcon}`} onClick={() => createData("tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate), uid: user.uid})} />
+            <PlusIcon className={`${classes.plusIcon}`} onClick={() => handleClick(dispatch, tasks, user, {taskName, startDate, endDate})} />
         </form>
     )
 }
