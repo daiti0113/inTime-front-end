@@ -46,3 +46,25 @@ Add or change CSS styles
 **perf**: A code change that improves performance  
 **test**: Adding missing or correcting existing tests  
 **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation  
+
+## Start Development
+1. Install packages
+    ```
+    npm install
+    ```
+
+1. Write .env file
+    ```
+    cp .env.example .env.dev
+    ```
+    Add **FIREBASE_XXX_XXX** in *.env.dev* 
+
+1. Run mock server
+    ```
+    npm run mock
+    ```
+
+1. Run dev server
+    ```
+    npm run dev
+    ```
