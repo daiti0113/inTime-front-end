@@ -10,6 +10,7 @@ import {userStore} from "../stores/userStore"
 import {createData} from "../helper/handleData"
 import {formatDate} from "../helper/convertDate"
 import {useSomeContexts} from "../helper/useSomeContexts"
+import {validateRequired} from "../helper/validator"
 
 const useStyles = createUseStyles({
     rangeDataPicker:{
@@ -19,11 +20,11 @@ const useStyles = createUseStyles({
     form: {
         display: "grid",
         gridTemplateColumns: "250px 450px 100px",
-        alignItems: "center"
+        alignItems: "end"
     },
-    plusIcon: ({taskName}) => ({
+    plusIcon: ({isValid}) => ({
         fill: secondaryGray,
-        cursor: taskName ? "pointer" : "not-allowed",
+        cursor: isValid ? "pointer" : "not-allowed",
         width: "70px",
         height: "70px",
         filter: `drop-shadow(1px 2px 2px ${secondaryGray})`,
@@ -31,7 +32,7 @@ const useStyles = createUseStyles({
         "&:hover": {
             fill: primaryGray
         },
-        "&:active": taskName ? {
+        "&:active": isValid ? {
             "-webkit-transform": "translateY(1px)",
             transform: "translateY(1px)",
             filter: "initial",
@@ -65,14 +66,15 @@ export const TaskAdditionForm = () => {
     const [taskName, setTaskName] = useState("")
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
-    const classes = useStyles({taskName})
+    const [isValid, setIsValid] = useState(false)
+    const classes = useStyles({isValid})
     const [{state: {tasks}, dispatch}, {state: {user}}] = useSomeContexts(useContext, [taskStore, userStore])
 
     return (
         <form className={classes.form}>
-            <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} />
+            <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} setIsValid={setIsValid} validationRules={[{validator: validateRequired, message: "Task name is required."}]} />
             <RangeDataPicker startDateUseState={[startDate, setStartDate]} endDateUseState={[endDate, setEndDate]} />
-            <PlusIcon className={`${classes.plusIcon}`} onClick={() => handleClick(dispatch, tasks, user, {taskName, startDate, endDate})} />
+            <PlusIcon className={`${classes.plusIcon}`} onClick={() => isValid && handleClick(dispatch, tasks, user, {taskName, startDate, endDate})} />
         </form>
     )
 }
