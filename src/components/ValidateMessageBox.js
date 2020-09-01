@@ -4,20 +4,20 @@ import {danger} from "../styles/color"
 
 const useStyles = createUseStyles({
     container:{
-        color: danger
+        color: danger,
+        fontSize: 18
     }
 })
 
 const handleInvalid = (setIsValid, message) => {
     setIsValid(false)
-    return <div>{message}</div>
+    return message
 }
 
-export const ValidateMessageBox = ({input, setIsValid, validationRules=[{validator: () => {}, message: ""}], showMessages}) => {
+export const ValidateMessageBox = ({input, setIsValid=() => {}, validationRules=[{validator: () => {}, message: ""}], showMessages="false"}) => {
     const classes = useStyles()
-    const messageElements = validationRules.map(rule => rule.validator(input) ? true : handleInvalid(setIsValid, rule.message))
-    
-    messageElements.every(el => el === true) && setIsValid(true)
+    const messages = validationRules.map(rule => rule.validator(input) ? "" : handleInvalid(setIsValid, rule.message))
+    messages.every(message => message === "") && setIsValid(true)
 
-    return <div className={classes.container}>{showMessages ? messageElements : false}</div>
+    return <div className={classes.container}>{showMessages ? <div>{messages.join(" ")}</div> : false}</div>
 }

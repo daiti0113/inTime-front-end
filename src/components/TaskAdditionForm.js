@@ -9,8 +9,9 @@ import {taskStore} from "../stores/taskStore"
 import {userStore} from "../stores/userStore"
 import {createData} from "../helper/handleData"
 import {formatDate} from "../helper/convertDate"
-import {useSomeContexts} from "../helper/useSomeContexts"
+import {useSomeContexts, useSomeStates} from "../helper/useSomeHooks"
 import {validateRequired} from "../helper/validator"
+import {ValidateMessageBox} from "./ValidateMessageBox"
 
 const useStyles = createUseStyles({
     rangeDataPicker:{
@@ -19,8 +20,8 @@ const useStyles = createUseStyles({
     },
     form: {
         display: "grid",
-        gridTemplateColumns: "250px 450px 100px",
-        alignItems: "end"
+        gridTemplateColumns: "220px 450px 100px",
+        alignItems: "start"
     },
     plusIcon: ({isValid}) => ({
         fill: secondaryGray,
@@ -58,23 +59,27 @@ const RangeDataPicker = ({startDateUseState: [startDate, setStartDate], endDateU
     )
 }
 
-const handleClick = (dispatch, tasks, user, {taskName, startDate, endDate}) => {
-    taskName && createData("tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate), uid: user.uid})
+const handleClick = (dispatch, tasks, user, setShowMessages, {taskName, startDate, endDate}) => {
+    taskName ? createData("tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate), uid: user.uid}) : setShowMessages(true)
 }
 
 export const TaskAdditionForm = () => {
-    const [taskName, setTaskName] = useState("")
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date())
-    const [isValid, setIsValid] = useState(false)
+    const [
+        [taskName, setTaskName],[startDate, setStartDate],
+        [endDate, setEndDate],[isValid, setIsValid],
+        [showMessages, setShowMessages]
+    ] = useSomeStates(useState, ["", new Date(), new Date(), false, false])
     const classes = useStyles({isValid})
     const [{state: {tasks}, dispatch}, {state: {user}}] = useSomeContexts(useContext, [taskStore, userStore])
 
     return (
         <form className={classes.form}>
-            <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} setIsValid={setIsValid} validationRules={[{validator: validateRequired, message: "Task name is required."}]} />
+            <div>
+                <Input title="Task Name" type="text" placeholder="Make a cake" id="taskName" useState={[taskName, setTaskName]} setShowMessages={setShowMessages} width="200px" />
+                <ValidateMessageBox input={taskName} setIsValid={setIsValid} validationRules={[{validator: validateRequired, message: "Task name is required."}]} showMessages={showMessages} />
+            </div>
             <RangeDataPicker startDateUseState={[startDate, setStartDate]} endDateUseState={[endDate, setEndDate]} />
-            <PlusIcon className={`${classes.plusIcon}`} onClick={() => isValid && handleClick(dispatch, tasks, user, {taskName, startDate, endDate})} />
+            <PlusIcon className={`${classes.plusIcon}`} onClick={() => handleClick(dispatch, tasks, user, setShowMessages, {taskName, startDate, endDate})} />
         </form>
     )
 }

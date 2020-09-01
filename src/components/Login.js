@@ -4,6 +4,9 @@ import {Input} from "./Input"
 import {login} from "../helper/handleAuth"
 import {userStore} from "../stores/userStore"
 import {useNavigate, Link} from "react-router-dom"
+import {useSomeStates} from "../helper/useSomeHooks"
+import {validateRequired, validateMailAddress} from "../helper/validator"
+import {ValidateMessageBox} from "./ValidateMessageBox"
 
 const useStyles = createUseStyles({
     container: {
@@ -12,7 +15,7 @@ const useStyles = createUseStyles({
     },
     form: {
         display: "grid",
-        gridTemplateRows: "80px 80px 30px 100px 1fr",
+        gridTemplateRows: "75px 30px 75px 30px 30px 80px 1fr",
         width: "100%",
         maxWidth: "300px"
     },
@@ -21,22 +24,29 @@ const useStyles = createUseStyles({
     }
 })
 
+const emailValidationRules = [
+    {validator: validateRequired, message: "Email is required."},
+    {validator: validateMailAddress, message: "Email is badly formatted."}
+]
+const passwordValidationRules = [{validator: validateRequired, message: "Password is required."}]
+
 export const Login = () => {
     const classes = useStyles()
     const {state: {error}, dispatch} = useContext(userStore)
-    const [id, setId] = useState("")
-    const [password, setPassword] = useState("")
+    const [[email, setEmail], [password, setPassword], [isValidEmail, setIsValidEmail], [isValidPassword, setIsValidPassword], [showMessages, setShowMessages]] = useSomeStates(useState, ["", "", false, false, false])
     const navigate = useNavigate()
 
     return (
         <div className={classes.container}>
-            <form className={classes.form} onSubmit={e => login(e, dispatch, id, password, navigate)}>
-                <Input title="ID" useState={[id, setId]} width="100%" />
-                <Input title="Password" useState={[password, setPassword]} type="password" width="100%" />
+            <div className={classes.form}>
+                <Input title="Email" useState={[email, setEmail]} setShowMessages={setShowMessages} />
+                <ValidateMessageBox input={email} setIsValid={setIsValidEmail} validationRules={emailValidationRules} showMessages={showMessages} />
+                <Input title="Password" useState={[password, setPassword]} type="password" setShowMessages={setShowMessages} />
+                <ValidateMessageBox input={password} setIsValid={setIsValidPassword} validationRules={passwordValidationRules} showMessages={showMessages} />
                 <div>{error ? error.errorMessage : ""}</div>
-                <input type="submit" className="paper-btn btn-secondary" value="Login" />
+                <input type="button" className="paper-btn btn-secondary" value="Login" onClick={e => isValidEmail && isValidPassword ? login(e, dispatch, email, password, navigate) : setShowMessages(true)} />
                 <Link to="/signup" className={classes.link}>Signup</Link>
-            </form>
+            </div>
         </div>
     )
 }

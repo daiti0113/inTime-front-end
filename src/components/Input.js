@@ -1,10 +1,14 @@
-import React, {useState} from "react"
+import React from "react"
 import {createUseStyles} from "react-jss"
-import {ValidateMessageBox} from "./ValidateMessageBox"
 
 const useStyles = createUseStyles({
+    container: {
+        display: "grid",
+        gridTemplateRows: "25px 50px"
+    },
     input: ({width}) => ({
-        width: width
+        width: width,
+        maxHeight: "47px"
     })
 })
 
@@ -13,15 +17,13 @@ const handleChange = (e, setState, setShowMessages) => {
     setShowMessages(true)
 }
 
-export const Input = ({title, useState: [state, setState], setIsValid=() => {}, validationRules=[{validator: () => {}, message: ""}], width="200px", ...rest}) => {
+export const Input = ({title, useState: [state, setState], setShowMessages=() => {}, width="100%", ...rest}) => {
     const classes = useStyles({width})
-    const [showMessages, setShowMessages] = useState(false)
 
     return (
-        <div>
+        <div className={classes.container}>
             {title && <label htmlFor={rest.id}>{title}</label>}
             <input className={classes.input} value={state} onChange={e => handleChange(e, setState, setShowMessages)} {...rest} />
-            <ValidateMessageBox input={state} setIsValid={setIsValid} validationRules={validationRules} showMessages={showMessages} />
         </div>
     )
 }
