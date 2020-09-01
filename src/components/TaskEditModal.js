@@ -3,7 +3,7 @@ import {createUseStyles} from "react-jss"
 import {deleteData} from "../helper/handleData"
 import {taskStore} from "../stores/taskStore"
 import {userStore} from "../stores/userStore"
-import {useSomeContexts} from "../helper/useSomeContexts"
+import {useSomeContexts} from "../helper/useSomeHooks"
 
 const useStyles = createUseStyles({
     modal: ({modalOpen}) => ({

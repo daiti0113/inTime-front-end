@@ -7,7 +7,7 @@ import {taskStore} from "../stores/taskStore"
 import {displaySettingStore} from "../stores/displaySettingStore"
 import {userStore} from "../stores/userStore"
 import {updateData} from "../helper/handleData"
-import {useSomeContexts} from "../helper/useSomeContexts"
+import {useSomeContexts} from "../helper/useSomeHooks"
 import {TaskEditModal} from "./TaskEditModal"
 
 const useStyles = createUseStyles({
