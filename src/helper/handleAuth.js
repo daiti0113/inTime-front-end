@@ -18,6 +18,7 @@ export const login = async (e, dispatch, email, password, navigate) => {
         dispatch({type: "LOGIN_SUCCESS", payload: getLoginSuccessState(response)})
         navigate("/")
     } catch (e) {
+        console.log(e)
         dispatch({type: "LOGIN_FAILURE", payload: getFailureState(e)}) 
     }
 }

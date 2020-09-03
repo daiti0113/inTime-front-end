@@ -59,7 +59,9 @@ const RangeDataPicker = ({startDateUseState: [startDate, setStartDate], endDateU
     )
 }
 
-const handleClick = (dispatch, tasks, user, setShowMessages, {taskName, startDate, endDate}) => {
+const handleClick = (dispatch, tasks, user, setShowMessages, setStartDate, setEndDate, {taskName, startDate, endDate}) => {
+    setStartDate(new Date())
+    setEndDate(new Date())
     taskName ? createData("tasks", dispatch, {id: tasks.length + 1, taskName, startDate: formatDate(startDate), endDate: formatDate(endDate), uid: user.uid}) : setShowMessages(true)
 }
 
@@ -79,7 +81,7 @@ export const TaskAdditionForm = () => {
                 <ValidateMessageBox input={taskName} setIsValid={setIsValid} validationRules={[{validator: validateRequired, message: "Task name is required."}]} showMessages={showMessages} />
             </div>
             <RangeDataPicker startDateUseState={[startDate, setStartDate]} endDateUseState={[endDate, setEndDate]} />
-            <PlusIcon className={`${classes.plusIcon}`} onClick={() => handleClick(dispatch, tasks, user, setShowMessages, {taskName, startDate, endDate})} />
+            <PlusIcon className={`${classes.plusIcon}`} onClick={() => handleClick(dispatch, tasks, user, setShowMessages, setStartDate, setEndDate, {taskName, startDate, endDate})} />
         </form>
     )
 }
