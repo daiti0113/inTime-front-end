@@ -30,6 +30,19 @@ const emailValidationRules = [
 ]
 const passwordValidationRules = [{validator: validateRequired, message: "Password is required."}]
 
+const convertMessage = (errorCode) => {
+    switch (errorCode) {
+        case "auth/user-disabled":
+        case "auth/user-not-found":
+        case "auth/wrong-password":
+            return "Incorrect mail or password."
+        case "auth/too-many-requests":
+            return "Too many failed attempts. Please try again in a few hours."
+        default:
+            return "Sorry, something went wrong."
+    }
+}
+
 export const Login = () => {
     const classes = useStyles()
     const {state: {error}, dispatch} = useContext(userStore)
@@ -43,7 +56,7 @@ export const Login = () => {
                 <ValidateMessageBox input={email} setIsValid={setIsValidEmail} validationRules={emailValidationRules} showMessages={showMessages} />
                 <Input title="Password" useState={[password, setPassword]} type="password" setShowMessages={setShowMessages} />
                 <ValidateMessageBox input={password} setIsValid={setIsValidPassword} validationRules={passwordValidationRules} showMessages={showMessages} />
-                <div>{error ? error.errorMessage : ""}</div>
+                <div>{error.errorCode ? convertMessage(error.errorCode) : ""}</div>
                 <input type="button" className="paper-btn btn-secondary" value="Login" onClick={e => isValidEmail && isValidPassword ? login(e, dispatch, email, password, navigate) : setShowMessages(true)} />
                 <Link to="/signup" className={classes.link}>Signup</Link>
             </div>
