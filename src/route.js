@@ -19,8 +19,4 @@ export const Router = () => {
     )
 }
 
-const AuthRoute = () => (
-    <Routes>
-        <Route path="/" element={<Top />} />
-    </Routes>
-)
+const AuthRoute = () => <Route path="//*" element={<Top />} />
