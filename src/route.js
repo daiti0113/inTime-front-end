@@ -5,6 +5,16 @@ import {Login} from "./components/Login"
 import {Top} from "./components/Top"
 import {Signup} from "./components/Signup"
 import {VerifyMailLink} from "./components/VerifyMailLink"
+import {Header} from "./components/Header"
+import {createUseStyles} from "react-jss"
+
+const useStyles = createUseStyles({
+    container: {
+        display: "grid",
+        gridTemplateRows: "70px 1fr",
+        rowGap: "20px"
+    }
+})
 
 export const Router = () => {
     const {state: {user}} = useContext(userStore)
@@ -21,4 +31,13 @@ export const Router = () => {
     )
 }
 
-const AuthRoute = () => <Route path="//*" element={<Top />} />
+const AuthRoute = () => {
+    const classes = useStyles()
+
+    return (
+        <div className={classes.container}>
+            <Header />
+            <Route path="//*" element={<Top />} />
+        </div>
+    )
+}

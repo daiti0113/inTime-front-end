@@ -3,7 +3,7 @@ import {createUseStyles} from "react-jss"
 import {Input} from "./Input"
 import {signup} from "../helper/handleAuth"
 import {userStore} from "../stores/userStore"
-import {useNavigate} from "react-router-dom"
+import {useNavigate, Link} from "react-router-dom"
 import {useSomeStates} from "../helper/useSomeHooks"
 import {ValidateMessageBox} from "./ValidateMessageBox"
 import {validateRequired, validateMailAddress, validateConfirm} from "../helper/validator"
@@ -11,7 +11,8 @@ import {validateRequired, validateMailAddress, validateConfirm} from "../helper/
 const useStyles = createUseStyles({
     container: {
         display: "grid",
-        justifyItems: "center"
+        justifyItems: "center",
+        alignSelf: "center"
     },
     form: {
         display: "grid",
@@ -22,6 +23,13 @@ const useStyles = createUseStyles({
     input: {
         display: "grid",
         gridTemplateRows: "80px 30px"
+    },
+    logo: {
+        backgroundImage: "none",
+        "& > h1": {
+            fontSize: 60,
+            margin: "0 0 .40em"
+        }
     }
 })
 
@@ -78,6 +86,7 @@ export const Signup = () => {
 
     return (
         <div className={classes.container}>
+            <Link to="/login" className={classes.logo}><h1>inTime</h1></Link>
             <div className={classes.form}>
                 <EmailInput useState={[email, setEmail]} useShowMessageState={[showMessages, setShowMessages]} setIsValid={setIsValidEmail} />
                 <PasswordInput useState={[password, setPassword]} useShowMessageState={[showMessages, setShowMessages]} setIsValid={setIsValidPassword} />

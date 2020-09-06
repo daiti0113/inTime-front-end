@@ -11,16 +11,22 @@ import {ValidateMessageBox} from "./ValidateMessageBox"
 const useStyles = createUseStyles({
     container: {
         display: "grid",
-        justifyItems: "center"
+        justifyItems: "center",
+        alignSelf: "center"
     },
     form: {
         display: "grid",
-        gridTemplateRows: "75px 30px 80px 1fr",
+        gridTemplateRows: "75px 30px 100px 1fr",
         width: "100%",
         maxWidth: "300px"
     },
     link: {
-        backgroundImage: "none"
+        backgroundImage: "none",
+        justifySelf: "center"
+    },
+    logo: {
+        fontSize: 60,
+        margin: "0 0 .40em"
     }
 })
 
@@ -60,6 +66,7 @@ export const Login = () => {
         <div className={classes.container}>
             {isMailSend && <div className="alert alert-success">{`We've sent an email to ${email} to verify your address. Please check the link in that email to login.`}</div>}
             {error.errorCode && <div className="alert alert-danger dismissible">{convertMessage(error.errorCode)}</div>}
+            <h1 className={classes.logo}>inTime</h1>
             <div className={classes.form}>
                 <Input title="Email" useState={[email, setEmail]} setShowMessages={setShowMessages} />
                 <ValidateMessageBox input={email} setIsValid={setIsValidEmail} validationRules={emailValidationRules} showMessages={showMessages} />
