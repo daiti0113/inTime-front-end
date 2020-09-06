@@ -4,6 +4,7 @@ import {userStore} from "./stores/userStore"
 import {Login} from "./components/Login"
 import {Top} from "./components/Top"
 import {Signup} from "./components/Signup"
+import {VerifyMailLink} from "./components/VerifyMailLink"
 
 export const Router = () => {
     const {state: {user}} = useContext(userStore)
@@ -13,6 +14,7 @@ export const Router = () => {
             <Routes>
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
+                <Route path="verifyMailLink" element={<VerifyMailLink />} />
                 {user.loggedIn ? <AuthRoute /> : <Navigate to="login" replace />}
             </Routes>
         </BrowserRouter>
