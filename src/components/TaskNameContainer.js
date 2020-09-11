@@ -22,7 +22,12 @@ const useStyles = createUseStyles({
         padding: 5,
         borderTop: `1px solid ${primaryGray}`,
         alignItems: "center"
-    })
+    }),
+    taskName: {
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis"
+    }
 })
 
 export const TaskNameContainer = ({tasks}) => {
@@ -32,7 +37,7 @@ export const TaskNameContainer = ({tasks}) => {
         <div className={classes.container}>
             <div className={classes.header}>Task</div>
             <div className={classes.taskNameContainer}>
-                {tasks && tasks.map(task => <div key={task.id}>{task.taskName}</div>)}
+                {tasks && tasks.map(task => <div key={task.id} className={classes.taskName}>{task.taskName}</div>)}
             </div>
         </div>
     )
