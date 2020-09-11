@@ -4,7 +4,6 @@ import {userStore} from "./stores/userStore"
 import {Login} from "./components/Login"
 import {Top} from "./components/Top"
 import {Signup} from "./components/Signup"
-import {VerifyMailLink} from "./components/VerifyMailLink"
 import {Header} from "./components/Header"
 import {createUseStyles} from "react-jss"
 
@@ -24,7 +23,6 @@ export const Router = () => {
             <Routes>
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
-                <Route path="verifyMailLink" element={<VerifyMailLink />} />
                 {user.loggedIn ? <AuthRoute /> : <Navigate to="login" replace />}
             </Routes>
         </BrowserRouter>

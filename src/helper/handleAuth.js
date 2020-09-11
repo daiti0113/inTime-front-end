@@ -1,8 +1,5 @@
 import {firestore} from "./firebase"
 
-// eslint-disable-next-line no-undef
-const APP_ROOT = process.env.APP_ROOT
-
 const getLoginSuccessState = res => ({
     loggedIn: true,
     name: res.user.displayName,
@@ -15,34 +12,13 @@ const getFailureState = res => ({
     errorMessage: res.message
 })
 
-const actionCodeSettings = {
-    url: `${APP_ROOT}/verifyMailLink`,
-    handleCodeInApp: true
-}
-console.log(`${APP_ROOT}/verifyMailLink`)
-
-export const sendEmailLink = async (e, dispatch, email) => {
+export const login = async (e, dispatch, email, password, navigate) => {
     try {
-        await firestore.auth.sendSignInLinkToEmail(email, actionCodeSettings)
-        console.log("Mail Send")
-        window.localStorage.setItem("emailForSignIn", email)
-    } catch (e) {
-        console.log(e)
-        dispatch({type: "LOGIN_FAILURE", payload: getFailureState(e)}) 
-    }
-}
-
-export const loginWithEmailLink = async (dispatch, navigate) => {
-    try {
-        const email = window.localStorage.getItem("emailForSignIn")
-        const result = firestore.auth.isSignInWithEmailLink(window.location.href) ? await firestore.auth.signInWithEmailLink(email, window.location.href) : false
-        console.log(email, window.location.href, result)
-        window.localStorage.removeItem("emailForSignIn")
-        result && dispatch({type: "LOGIN_SUCCESS", payload: getLoginSuccessState(result)})
+        const response = await firestore.auth.signInWithEmailAndPassword(email, password)
+        dispatch({type: "LOGIN_SUCCESS", payload: getLoginSuccessState(response)})
         navigate("/")
     } catch (e) {
         console.log(e)
-        navigate("/login")
         dispatch({type: "LOGIN_FAILURE", payload: getFailureState(e)}) 
     }
 }
