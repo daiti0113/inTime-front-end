@@ -1,6 +1,7 @@
 # inTime-front-end
 Create a free handwritten Gantt chart application.  
 Task bar can be dragged, dropped and resize.
+https://intime-b7a8a.web.app/
 
 ## This project uses:
 - **react** Front-end library
